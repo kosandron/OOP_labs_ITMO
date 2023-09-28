@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Models;
 
 public abstract class GalacticBase
 {
-    protected GalacticBase(Collection<ObstacleBase> obstacles, int size)
+    protected GalacticBase(in Collection<ObstacleBase> obstacles, int size)
     {
             ArgumentNullException.ThrowIfNull("List of obstascles is Null!", nameof(obstacles));
             if (size <= 0)
@@ -13,8 +13,8 @@ public abstract class GalacticBase
                 throw new ArgumentException("Size of Galactic is less or equal 0!", nameof(size));
             }
 
-            this.Obstacles = obstacles;
-            this.Size = size;
+            Obstacles = obstacles;
+            Size = size;
     }
 
     public Collection<ObstacleBase> Obstacles { get; private set;  }

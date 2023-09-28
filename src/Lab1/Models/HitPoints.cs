@@ -8,16 +8,22 @@ public class HitPoints
     {
         if (value < 0)
         {
-            throw new ArgumentException("Value is less than 0!", nameof(value));
+            throw new ArgumentException("HitPoints value is less than 0!", nameof(value));
         }
 
-        this.Value = value;
+        Value = value;
     }
 
     public int Value { get; private set; }
+    public bool IsDead => Value == 0;
 
     public void DecreaseHitPoints(int value)
     {
-        this.Value = Math.Max(0, this.Value - value);
+        if (value <= 0)
+        {
+            throw new ArgumentException("Trying to decrease HitPoints by negative or null number!", nameof(value));
+        }
+
+        Value = Math.Max(0, Value - value);
     }
 }
