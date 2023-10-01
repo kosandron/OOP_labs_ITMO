@@ -2,7 +2,7 @@
 
 public enum Results
 {
-    Error = 0,
+    None = 0,
     Success = 1,
     ShipLost = 2,
     ShipDestroying = 3,

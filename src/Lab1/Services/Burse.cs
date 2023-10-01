@@ -1,4 +1,5 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Models;
+using Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Services;
 
@@ -21,5 +22,17 @@ public class Burse
     public void ChangeGravitonMatterPrice(int newValue)
     {
         GravitonMatterPrice.ChangePrice(newValue);
+    }
+
+    public int GetPriceForEngine(in EngineBase engine)
+    {
+        if (engine is ImpulsEngineBase)
+        {
+            return ActivePlasmaPrice.Value;
+        }
+        else
+        {
+            return GravitonMatterPrice.Value;
+        }
     }
 }

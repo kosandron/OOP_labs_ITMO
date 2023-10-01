@@ -8,7 +8,7 @@ public class Price
     {
         if (priceValue < 0)
         {
-            throw new ArgumentException("Price value is less or equal 0!", nameof(priceValue));
+            throw new ArgumentException("Price value is less 0!", nameof(priceValue));
         }
 
         Value = priceValue;
@@ -18,9 +18,9 @@ public class Price
 
     public void ChangePrice(int newPrice)
     {
-        if (newPrice <= 0)
+        if (newPrice < 0)
         {
-            throw new ArgumentException("New price value is less or equal 0!", nameof(newPrice));
+            throw new ArgumentException("New price value is less 0!", nameof(newPrice));
         }
 
         Value = newPrice;

@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Models;
-
+using Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
+#pragma warning disable CA1822 // ну тут выбирать надо, либо отключать ошибку ВРУЧНУЮ! (на занятии говорили, что статик - плохо), либо писать static
 namespace Itmo.ObjectOrientedProgramming.Lab1.Services;
 
 public class MissionControlCenter
@@ -23,17 +24,35 @@ public class MissionControlCenter
             throw new ArgumentNullException(nameof(burse));
         }
 
-         // доступность прохода двигателя через голактику - иначе 0 0 0 2
+        if (!ship.IsSupportedSpace(galactic))
+        {
+            return new RequestResult(new Price(0), 0, Results.ShipLost);
+        }
 
-        int time = ship.ShipImpulsEngine.GetTimeForPath(galactic.Size); // расчет через формулу, использовать другую
-        int cost = 0; // расчет за единицу
-        
-        // проход по метеорам, получение дамага
-        
-        // возвращение результата
+        EngineBase currentEngine = ship.GetOptimalEngine(galactic);
+        int time = currentEngine.GetTimeForPath(galactic.Size);
+        int cost = burse.GetPriceForEngine(currentEngine) * currentEngine.GetOilForPath(galactic.Size);
+
+        foreach (ObstacleBase obstacle in galactic.Obstacles)
+        {
+            obstacle.MakeDamage(ref ship);
+        }
+
+        if (!ship.IsAlive)
+        {
+            return new RequestResult(new Price(cost), time, Results.ShipDestroying);
+        }
+        else if (!ship.PeopleAreAlive)
+        {
+            return new RequestResult(new Price(cost), time, Results.CrewDeath);
+        }
+        else
+        {
+            return new RequestResult(new Price(cost), time, Results.Success);
+        }
     }
 
-    public RequestResult TryToFlyWay(ShipBase ship, Collection<GalacticBase> way, in Burse burse)
+    public RequestResult TryToFlyWay(ShipBase ship, IList<GalacticBase> way, in Burse burse)
     {
         if (way == null)
         {
@@ -50,14 +69,58 @@ public class MissionControlCenter
             throw new ArgumentNullException(nameof(burse));
         }
 
-        // maybe создание промежуточных переменных для рекорда
+        int cost = 0;
+        int time = 0;
         foreach (GalacticBase galactic in way)
         {
-            TryToFlyGalactic(ref ship, galactic, in burse);
-            // обработка рекорда
+            if (ship.IsSupportedSpace(galactic))
+            {
+                RequestResult result = TryToFlyGalactic(ref ship, galactic, in burse);
+                cost += result.Cost.Value;
+                time += result.Time;
+                if (result.Result != Results.Success)
+                {
+                    return new RequestResult(new Price(cost), time, result.Result);
+                }
+            }
+            else
+            {
+                return new RequestResult(new Price(cost), time, Results.ShipLost);
+            }
         }
-        // вынесение приговора, возврат рекорда
+
+        return new RequestResult(new Price(cost), time, Results.Success);
     }
-    
-    // метод, принимающий коллекцию кораблей и возвращающий лучший корабль
+
+    public ShipBase? FindOptimalShip(IList<ShipBase> ships, IList<GalacticBase> way, Burse burse)
+    {
+        if (way == null)
+        {
+            throw new ArgumentNullException(nameof(way));
+        }
+
+        if (ships == null)
+        {
+            throw new ArgumentNullException(nameof(ships));
+        }
+
+        if (burse == null)
+        {
+            throw new ArgumentNullException(nameof(burse));
+        }
+
+        ShipBase? optimalShip = null;
+        int minPrice = int.MaxValue;
+        foreach (ShipBase ship in ships)
+        {
+            RequestResult result = TryToFlyWay(ship, way, burse);
+            if (result.Result == Results.Success && result.Cost.Value < minPrice)
+            {
+                optimalShip = ship;
+                minPrice = result.Cost.Value;
+            }
+        }
+
+        return optimalShip;
+    }
 }
