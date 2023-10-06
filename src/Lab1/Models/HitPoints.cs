@@ -8,7 +8,7 @@ public class HitPoints
     {
         if (value < 0)
         {
-            throw new ArgumentException("HitPoints value is less than 0!", nameof(value));
+            throw new NegativeValueException(nameof(value));
         }
 
         Value = value;
@@ -21,7 +21,7 @@ public class HitPoints
     {
         if (value <= 0)
         {
-            throw new ArgumentException("Trying to decrease HitPoints by negative or null number!", nameof(value));
+            throw new NegativeValueException(nameof(value));
         }
 
         Value = Math.Max(0, Value - value);

@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Entries\" />
+      <Folder Include="Entities\" />
     </ItemGroup>
 
 </Project>

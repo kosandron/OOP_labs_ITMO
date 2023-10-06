@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Engine;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Galactics;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Ship;
 using Itmo.ObjectOrientedProgramming.Lab1.Models;
-using Itmo.ObjectOrientedProgramming.Lab1.Models.Engine;
-#pragma warning disable CA1822 // ну тут выбирать надо, либо отключать ошибку ВРУЧНУЮ! (на занятии говорили, что статик - плохо), либо писать static
+
 namespace Itmo.ObjectOrientedProgramming.Lab1.Services;
 
-public class MissionControlCenter
+public class MissionControlCenter : IOvercomePathTester, IOptimalShipChoosing
 {
-    public RequestResult TryToFlyGalactic(ref ShipBase ship, GalacticBase galactic, in Burse burse)
+    public RequestResult TryToFlyGalactic(ShipBase ship, GalacticBase galactic, in FuelShop fuelShop)
     {
         if (ship == null)
         {
@@ -19,9 +22,9 @@ public class MissionControlCenter
             throw new ArgumentNullException(nameof(galactic));
         }
 
-        if (burse == null)
+        if (fuelShop == null)
         {
-            throw new ArgumentNullException(nameof(burse));
+            throw new ArgumentNullException(nameof(fuelShop));
         }
 
         if (!ship.IsSupportedSpace(galactic))
@@ -31,12 +34,9 @@ public class MissionControlCenter
 
         EngineBase currentEngine = ship.GetOptimalEngine(galactic);
         int time = currentEngine.GetTimeForPath(galactic.Size);
-        int cost = burse.GetPriceForEngine(currentEngine) * currentEngine.GetOilForPath(galactic.Size);
+        int cost = fuelShop.GetPriceForEngine(currentEngine) * currentEngine.GetOilForPath(galactic.Size);
 
-        foreach (ObstacleBase obstacle in galactic.Obstacles)
-        {
-            obstacle.MakeDamage(ref ship);
-        }
+        galactic.Obstacles.ToImmutableList().ForEach(it => it.MakeDamage(ship));
 
         if (!ship.IsAlive)
         {
@@ -52,7 +52,7 @@ public class MissionControlCenter
         }
     }
 
-    public RequestResult TryToFlyWay(ShipBase ship, IList<GalacticBase> way, in Burse burse)
+    public RequestResult TryToFlyWay(ShipBase ship, IList<GalacticBase> way, in FuelShop fuelShop)
     {
         if (way == null)
         {
@@ -64,9 +64,9 @@ public class MissionControlCenter
             throw new ArgumentNullException(nameof(ship));
         }
 
-        if (burse == null)
+        if (fuelShop == null)
         {
-            throw new ArgumentNullException(nameof(burse));
+            throw new ArgumentNullException(nameof(fuelShop));
         }
 
         int cost = 0;
@@ -75,7 +75,7 @@ public class MissionControlCenter
         {
             if (ship.IsSupportedSpace(galactic))
             {
-                RequestResult result = TryToFlyGalactic(ref ship, galactic, in burse);
+                RequestResult result = TryToFlyGalactic(ship, galactic, in fuelShop);
                 cost += result.Cost.Value;
                 time += result.Time;
                 if (result.Result != Results.Success)
@@ -92,7 +92,7 @@ public class MissionControlCenter
         return new RequestResult(new Price(cost), time, Results.Success);
     }
 
-    public ShipBase? FindOptimalShip(IList<ShipBase> ships, IList<GalacticBase> way, Burse burse)
+    public ShipBase? FindOptimalShip(IList<ShipBase> ships, IList<GalacticBase> way, FuelShop fuelShop)
     {
         if (way == null)
         {
@@ -104,16 +104,16 @@ public class MissionControlCenter
             throw new ArgumentNullException(nameof(ships));
         }
 
-        if (burse == null)
+        if (fuelShop == null)
         {
-            throw new ArgumentNullException(nameof(burse));
+            throw new ArgumentNullException(nameof(fuelShop));
         }
 
         ShipBase? optimalShip = null;
         int minPrice = int.MaxValue;
         foreach (ShipBase ship in ships)
         {
-            RequestResult result = TryToFlyWay(ship, way, burse);
+            RequestResult result = TryToFlyWay(ship, way, fuelShop);
             if (result.Result == Results.Success && result.Cost.Value < minPrice)
             {
                 optimalShip = ship;

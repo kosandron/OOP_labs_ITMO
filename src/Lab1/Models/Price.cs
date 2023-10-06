@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Itmo.ObjectOrientedProgramming.Lab1.Models;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Models;
 
 public class Price
 {
@@ -8,7 +6,7 @@ public class Price
     {
         if (priceValue < 0)
         {
-            throw new ArgumentException("Price value is less 0!", nameof(priceValue));
+            throw new NegativeValueException(nameof(priceValue));
         }
 
         Value = priceValue;
@@ -20,7 +18,7 @@ public class Price
     {
         if (newPrice < 0)
         {
-            throw new ArgumentException("New price value is less 0!", nameof(newPrice));
+            throw new NegativeValueException(nameof(newPrice));
         }
 
         Value = newPrice;
