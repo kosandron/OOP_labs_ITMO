@@ -1,6 +1,6 @@
 ﻿using System;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Galactics;
-using Itmo.ObjectOrientedProgramming.Lab1.Models;
+using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Engine;
 public class ImpulseEngineE : ImpulseEngineBase

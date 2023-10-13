@@ -1,4 +1,6 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Models;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
+
+namespace Itmo.ObjectOrientedProgramming.Lab1.Models;
 public class GasTank
 {
     public GasTank(int value)

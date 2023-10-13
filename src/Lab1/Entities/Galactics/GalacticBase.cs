@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Obstacles;
-using Itmo.ObjectOrientedProgramming.Lab1.Models;
+using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Galactics;
 

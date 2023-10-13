@@ -1,5 +1,5 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Entities.Ship;
-using Itmo.ObjectOrientedProgramming.Lab1.Models;
+using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Obstacles;
 

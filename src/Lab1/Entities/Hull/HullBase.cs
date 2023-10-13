@@ -1,4 +1,5 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Models;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
+using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Hull;
 public abstract class HullBase

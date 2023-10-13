@@ -2,7 +2,7 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Deflectors;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Engine;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Galactics;
-using Itmo.ObjectOrientedProgramming.Lab1.Models;
+using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Ship;
 

@@ -1,5 +1,5 @@
 ﻿using System;
-using Itmo.ObjectOrientedProgramming.Lab1.Models;
+using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Deflectors;
 public class PhotonDeflectorBase

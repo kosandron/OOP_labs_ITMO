@@ -1,4 +1,5 @@
 ﻿using System;
+using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Models;
 
