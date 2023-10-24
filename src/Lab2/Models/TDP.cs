@@ -1,8 +1,9 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
+using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Models;
 
-public class TDP
+public class TDP : ICopyable<TDP>
 {
     private int _value;
 
@@ -17,4 +18,9 @@ public class TDP
     }
 
     public int Value => _value;
+
+    public TDP DeepCopy()
+    {
+        return new TDP(_value);
+    }
 }

@@ -6,9 +6,8 @@ using Itmo.ObjectOrientedProgramming.Lab2.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entities;
 
-public class CpuCooler
+public class CpuCooler : IComponent, ICloneable<CpuCooler>, ICopyable<CpuCooler>
 {
-    private string _name;
     private int _size;
     private IList<Socket> _supportedSockedList;
     private TDP _powerDissipation;
@@ -17,7 +16,7 @@ public class CpuCooler
     {
         if (size <= 0)
         {
-            throw new NegativeValueException("Sixe is less than null!");
+            throw new NegativeValueException("Size is less than null!");
         }
 
         if (supportedSockedList == null)
@@ -35,7 +34,7 @@ public class CpuCooler
             throw new ArgumentNullException(nameof(powerDissipation));
         }
 
-        _name = name;
+        Name = name;
         _size = size;
         _supportedSockedList = supportedSockedList;
         _powerDissipation = powerDissipation;
@@ -48,16 +47,20 @@ public class CpuCooler
             throw new ArgumentNullException(nameof(other));
         }
 
-        _name = other._name;
+        Name = other.Name;
         _size = other._size;
         _supportedSockedList = other._supportedSockedList;
         _powerDissipation = other._powerDissipation;
     }
 
-    public string Name => _name;
+    public string Name { get; init; }
     public int Size => _size;
     public IImmutableList<Socket> SupportedSockedList => _supportedSockedList.ToImmutableList();
     public TDP PowerDissipation => _powerDissipation;
 
-    public CpuCooler Clone => new CpuCooler(this);
+    public CpuCooler Clone() => new CpuCooler(this);
+    public CpuCooler DeepCopy()
+    {
+        return new CpuCooler(Name, Size, new List<Socket>(SupportedSockedList), PowerDissipation.DeepCopy());
+    }
 }

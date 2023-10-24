@@ -1,8 +1,9 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
+using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Models;
 
-public class PowerConsumption
+public class PowerConsumption : ICopyable<PowerConsumption>
 {
     private int _value;
 
@@ -17,4 +18,9 @@ public class PowerConsumption
     }
 
     public int Value => _value;
+
+    public PowerConsumption DeepCopy()
+    {
+        return new PowerConsumption(_value);
+    }
 }

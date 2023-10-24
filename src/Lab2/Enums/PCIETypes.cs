@@ -2,6 +2,7 @@
 
 public enum PCIETypes
 {
+    None,
     X1,
     X16,
 }

@@ -1,8 +1,9 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
+using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Models;
 
-public class Frequency
+public class Frequency : ICopyable<Frequency>
 {
     private int _value;
 
@@ -17,4 +18,9 @@ public class Frequency
     }
 
     public int Value => _value;
+
+    public Frequency DeepCopy()
+    {
+        return new Frequency(_value);
+    }
 }

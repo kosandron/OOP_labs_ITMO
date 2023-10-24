@@ -2,6 +2,7 @@
 
 public enum DDRStandarts
 {
+    None,
     DDR3,
     DDR4,
     DDR5,

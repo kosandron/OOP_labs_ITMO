@@ -1,6 +1,8 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab2.Models;
+﻿using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 
-public class Socket
+namespace Itmo.ObjectOrientedProgramming.Lab2.Models;
+
+public class Socket : ICopyable<Socket>
 {
     private string _version;
 
@@ -10,4 +12,8 @@ public class Socket
     }
 
     public string Version => _version;
+    public Socket DeepCopy()
+    {
+        return new Socket(Version);
+    }
 }

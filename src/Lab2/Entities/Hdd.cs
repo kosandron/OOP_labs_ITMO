@@ -4,13 +4,13 @@ using Itmo.ObjectOrientedProgramming.Lab2.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entities;
 
-public class HDD
+public class Hdd : IComponent, ICloneable<Hdd>, ICopyable<Hdd>
 {
     private readonly int _memory;
     private readonly int _spindleSpeed;
     private readonly PowerConsumption _powerConsumption;
 
-    public HDD(int memory, int spindleSpeed, PowerConsumption powerConsumption)
+    public Hdd(string name, int memory, int spindleSpeed, PowerConsumption powerConsumption)
     {
         if (powerConsumption == null)
         {
@@ -27,12 +27,33 @@ public class HDD
             throw new NegativeValueException("Spindle speed is less than 0!");
         }
 
+        Name = name;
         _memory = memory;
         _spindleSpeed = spindleSpeed;
         _powerConsumption = powerConsumption;
     }
 
+    public Hdd(Hdd other)
+    {
+        if (other == null)
+        {
+            throw new ArgumentNullException(nameof(other));
+        }
+
+        Name = other.Name;
+        _memory = other._memory;
+        _spindleSpeed = other._spindleSpeed;
+        _powerConsumption = other._powerConsumption;
+    }
+
+    public string Name { get; init; }
     public int Memory => _memory;
     public int SpindleSpeed => _spindleSpeed;
     public PowerConsumption PowerConsumption => _powerConsumption;
+
+    public Hdd Clone() => new Hdd(this);
+    public Hdd DeepCopy()
+    {
+        return new Hdd(Name, Memory, SpindleSpeed, PowerConsumption.DeepCopy());
+    }
 }

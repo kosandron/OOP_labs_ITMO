@@ -2,6 +2,7 @@
 
 public enum MotherBoardFormFactorTypes
 {
+    None,
     MiniITX,
     StandartATX,
     MicroATX,

@@ -2,6 +2,7 @@
 
 public enum CaseSize
 {
+    None,
     Small,
     Middle,
     Big,

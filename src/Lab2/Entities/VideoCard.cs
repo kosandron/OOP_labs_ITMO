@@ -5,7 +5,7 @@ using Itmo.ObjectOrientedProgramming.Lab2.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entities;
 
-public class VideoCard
+public class VideoCard : IComponent, ICloneable<VideoCard>, ICopyable<VideoCard>
 {
     private readonly int _width;
     private readonly int _height;
@@ -14,7 +14,7 @@ public class VideoCard
     private readonly Frequency _chipFrequency;
     private readonly PowerConsumption _powerConsumption;
 
-    public VideoCard(int width, int height, int memory, PCIETypes pcieType, Frequency chipFrequency, PowerConsumption powerConsumption)
+    public VideoCard(string name, int width, int height, int memory, PCIETypes pcieType, Frequency chipFrequency, PowerConsumption powerConsumption)
     {
         if (width <= 0)
         {
@@ -36,6 +36,7 @@ public class VideoCard
             throw new ArgumentNullException(nameof(powerConsumption));
         }
 
+        Name = name;
         _width = width;
         _height = height;
         _memory = memory;
@@ -44,10 +45,33 @@ public class VideoCard
         _powerConsumption = powerConsumption;
     }
 
+    private VideoCard(VideoCard other)
+    {
+        if (other == null)
+        {
+            throw new ArgumentNullException(nameof(other));
+        }
+
+        Name = other.Name;
+        _width = other._width;
+        _height = other._height;
+        _memory = other._memory;
+        _pcieType = other._pcieType;
+        _chipFrequency = other._chipFrequency;
+        _powerConsumption = other._powerConsumption;
+    }
+
+    public string Name { get; init; }
     public int Width => _width;
     public int Height => _height;
     public int Memory => _memory;
     public PCIETypes PcieType => _pcieType;
     public Frequency ChipFrequency => _chipFrequency;
     public PowerConsumption PowerConsumption => _powerConsumption;
+
+    public VideoCard Clone() => new VideoCard(this);
+    public VideoCard DeepCopy()
+    {
+        return new VideoCard(Name, Width, Height, Memory, PcieType, ChipFrequency.DeepCopy(), PowerConsumption.DeepCopy());
+    }
 }

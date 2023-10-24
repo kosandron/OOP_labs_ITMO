@@ -1,8 +1,9 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
+using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Models;
 
-public class XMP
+public class XMP : ICopyable<XMP>
 {
     private readonly Frequency _frequency;
     private int _voltage;
@@ -20,7 +21,12 @@ public class XMP
         _timings = timings;
     }
 
-    public Frequency Frequency => _frequency;
+    public Frequency XmpFrequency => _frequency;
     public int Voltage => _voltage;
     public string Timings => _timings;
+
+    public XMP DeepCopy()
+    {
+        return new XMP(XmpFrequency.DeepCopy(), Voltage, Timings);
+    }
 }

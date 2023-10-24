@@ -3,9 +3,8 @@ using Itmo.ObjectOrientedProgramming.Lab2.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entities;
 
-public class Cpu
+public class Cpu : IComponent, ICloneable<Cpu>, ICopyable<Cpu>
 {
-    private string _name;
     private int _cerrCount;
     private Frequency _cerrFrequency;
     private Socket _socket;
@@ -31,7 +30,37 @@ public class Cpu
             throw new ArgumentException("Less than 1 cerr!");
         }
 
-        _name = name;
+        if (cerrFrequency == null)
+        {
+            throw new ArgumentNullException(nameof(cerrFrequency));
+        }
+
+        if (socket == null)
+        {
+            throw new ArgumentNullException(nameof(socket));
+        }
+
+        if (baseFrequency == null)
+        {
+            throw new ArgumentNullException(nameof(baseFrequency));
+        }
+
+        if (maxFrequency == null)
+        {
+            throw new ArgumentNullException(nameof(maxFrequency));
+        }
+
+        if (tdp == null)
+        {
+            throw new ArgumentNullException(nameof(tdp));
+        }
+
+        if (powerConsumption == null)
+        {
+            throw new ArgumentNullException(nameof(powerConsumption));
+        }
+
+        Name = name;
         _cerrCount = cerrCount;
         _cerrFrequency = cerrFrequency;
         _socket = socket;
@@ -49,18 +78,18 @@ public class Cpu
             throw new ArgumentNullException(nameof(other));
         }
 
-        _name = other.Name;
-        _cerrCount = other.CerrCount;
-        _cerrFrequency = other.CerrFrequency;
-        _socket = other.CpuSocket;
-        _hasVideoCerr = other.HasVideoCerr;
-        _baseFrequency = other.BaseFrequency;
-        _maxFrequency = other.MaxFrequency;
-        _tdp = other.CpuTDP;
-        _powerConsumption = other.CpuPowerConsumption;
+        Name = other.Name;
+        _cerrCount = other._cerrCount;
+        _cerrFrequency = other._cerrFrequency;
+        _socket = other._socket;
+        _hasVideoCerr = other._hasVideoCerr;
+        _baseFrequency = other._baseFrequency;
+        _maxFrequency = other._maxFrequency;
+        _tdp = other._tdp;
+        _powerConsumption = other._powerConsumption;
     }
 
-    public string Name => _name;
+    public string Name { get; init; }
     public int CerrCount => _cerrCount;
     public Frequency CerrFrequency => _cerrFrequency;
     public Socket CpuSocket => _socket;
@@ -71,4 +100,17 @@ public class Cpu
     public PowerConsumption CpuPowerConsumption => _powerConsumption;
 
     public Cpu Clone() => new Cpu(this);
+    public Cpu DeepCopy()
+    {
+        return new Cpu(
+            Name,
+            CerrCount,
+            CerrFrequency.DeepCopy(),
+            CpuSocket.DeepCopy(),
+            _hasVideoCerr,
+            BaseFrequency.DeepCopy(),
+            MaxFrequency.DeepCopy(),
+            CpuTDP.DeepCopy(),
+            CpuPowerConsumption.DeepCopy());
+    }
 }

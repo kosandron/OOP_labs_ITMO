@@ -2,6 +2,7 @@
 
 public enum MemoryFormFactorTypes
 {
+    None,
     DIMM,
     SODIMM,
     RDIMM,

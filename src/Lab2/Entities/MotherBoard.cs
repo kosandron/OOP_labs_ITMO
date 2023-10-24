@@ -7,7 +7,7 @@ using Itmo.ObjectOrientedProgramming.Lab2.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entities;
 
-public class MotherBoard
+public class MotherBoard : IComponent, ICloneable<MotherBoard>, ICopyable<MotherBoard>
 {
     private readonly Socket _cpuSocket;
     private readonly XMP _chipset;
@@ -20,6 +20,7 @@ public class MotherBoard
     private Bios? _bios;
 
     public MotherBoard(
+        string name,
         Socket cpuSocket,
         IList<PCIETypes>? pciLines,
         int sataPorts,
@@ -33,6 +34,21 @@ public class MotherBoard
         if (cpuSocket == null)
         {
             throw new ArgumentNullException(nameof(cpuSocket));
+        }
+
+        if (memoryFormFactor == MemoryFormFactorTypes.None)
+        {
+            throw new ArgumentNullException(nameof(memoryFormFactor));
+        }
+
+        if (motherBoardFormFactor == MotherBoardFormFactorTypes.None)
+        {
+            throw new ArgumentNullException(nameof(motherBoardFormFactor));
+        }
+
+        if (ddrStandart == DDRStandarts.None)
+        {
+            throw new ArgumentNullException(nameof(ddrStandart));
         }
 
         if (chipset == null)
@@ -50,6 +66,7 @@ public class MotherBoard
             throw new ArgumentException("Memory slots count is less than 1!");
         }
 
+        Name = name;
         _cpuSocket = cpuSocket;
         _pciLines = pciLines ?? new List<PCIETypes>();
         _sataPorts = sataPorts;
@@ -61,6 +78,26 @@ public class MotherBoard
         _bios = bios;
     }
 
+    private MotherBoard(MotherBoard other)
+    {
+        if (other == null)
+        {
+            throw new ArgumentNullException(nameof(other));
+        }
+
+        Name = other.Name;
+        _cpuSocket = other._cpuSocket;
+        _pciLines = other._pciLines ?? new List<PCIETypes>();
+        _sataPorts = other._sataPorts;
+        _chipset = other._chipset;
+        _ddrStandart = other._ddrStandart;
+        _memoryFormFactor = other._memoryFormFactor;
+        _motherBoardFormFactor = other._motherBoardFormFactor;
+        _memorySlotsCount = other._memorySlotsCount;
+        _bios = other._bios;
+    }
+
+    public string Name { get; init; }
     public Socket CpuSocket => _cpuSocket;
     public ImmutableList<PCIETypes> PcieList => _pciLines.ToImmutableList();
     public int SataPorts => _sataPorts;
@@ -70,6 +107,7 @@ public class MotherBoard
     public MotherBoardFormFactorTypes MotherBoardFormFactor => _motherBoardFormFactor;
     public int MemorySlotsCount => _memorySlotsCount;
     public Bios? Bios => _bios;
+    public MotherBoard Clone() => new MotherBoard(this);
 
     public void UpdateBIOS(Bios newBIOS)
     {
@@ -79,5 +117,20 @@ public class MotherBoard
         }
 
         _bios = newBIOS;
+    }
+
+    public MotherBoard DeepCopy()
+    {
+        return new MotherBoard(
+            Name,
+            CpuSocket.DeepCopy(),
+            new List<PCIETypes>(PcieList),
+            SataPorts,
+            Chipset.DeepCopy(),
+            DdrStandart,
+            MemorySlotsCount,
+            MemoryFormFactor,
+            MotherBoardFormFactor,
+            Bios?.Clone());
     }
 }
