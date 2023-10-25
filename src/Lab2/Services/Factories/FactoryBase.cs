@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 
@@ -9,6 +10,11 @@ public class FactoryBase<T> : IComponentFactory<T>
     where T : class, IComponent, ICopyable<T>
 {
     private readonly ICollection<T> _components;
+
+    public FactoryBase()
+    {
+        _components = new Collection<T>();
+    }
 
     public FactoryBase(ICollection<T> components)
     {
