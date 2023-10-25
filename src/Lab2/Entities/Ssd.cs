@@ -52,7 +52,7 @@ public class Ssd : IComponent, ICloneable<Ssd>, ICopyable<Ssd>
 
     public string Name { get; init; }
 
-    public PCIETypes? PcieType => _pcieType;
+    public PCIETypes PcieType => _pcieType;
     public int Memory => _memory;
     public int MaxSpeed => _maxSpeed;
     public PowerConsumption PowerConsumption => _powerConsumption;

@@ -118,6 +118,11 @@ public class MotherBoardBuilder
             throw new ArgumentNullException(nameof(_chipset));
         }
 
+        if (_bios == null)
+        {
+            throw new ArgumentNullException(nameof(_bios));
+        }
+
         if (_sataPorts < 0)
         {
             throw new NegativeValueException("SATA ports count is less than 0!");

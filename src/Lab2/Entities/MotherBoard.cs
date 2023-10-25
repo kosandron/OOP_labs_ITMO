@@ -17,7 +17,7 @@ public class MotherBoard : IComponent, ICloneable<MotherBoard>, ICopyable<Mother
     private int _memorySlotsCount;
     private MemoryFormFactorTypes _memoryFormFactor;
     private MotherBoardFormFactorTypes _motherBoardFormFactor;
-    private Bios? _bios;
+    private Bios _bios;
 
     public MotherBoard(
         string name,
@@ -29,7 +29,7 @@ public class MotherBoard : IComponent, ICloneable<MotherBoard>, ICopyable<Mother
         int memorySlotsCount,
         MemoryFormFactorTypes memoryFormFactor,
         MotherBoardFormFactorTypes motherBoardFormFactor,
-        Bios? bios)
+        Bios bios)
     {
         if (cpuSocket == null)
         {
@@ -54,6 +54,11 @@ public class MotherBoard : IComponent, ICloneable<MotherBoard>, ICopyable<Mother
         if (chipset == null)
         {
             throw new ArgumentNullException(nameof(chipset));
+        }
+
+        if (bios == null)
+        {
+            throw new ArgumentNullException(nameof(bios));
         }
 
         if (sataPorts < 0)
@@ -106,7 +111,7 @@ public class MotherBoard : IComponent, ICloneable<MotherBoard>, ICopyable<Mother
     public MemoryFormFactorTypes MemoryFormFactor => _memoryFormFactor;
     public MotherBoardFormFactorTypes MotherBoardFormFactor => _motherBoardFormFactor;
     public int MemorySlotsCount => _memorySlotsCount;
-    public Bios? Bios => _bios;
+    public Bios Bios => _bios;
     public MotherBoard Clone() => new MotherBoard(this);
 
     public void UpdateBIOS(Bios newBIOS)
@@ -131,6 +136,6 @@ public class MotherBoard : IComponent, ICloneable<MotherBoard>, ICopyable<Mother
             MemorySlotsCount,
             MemoryFormFactor,
             MotherBoardFormFactor,
-            Bios?.Clone());
+            Bios.DeepCopy());
     }
 }

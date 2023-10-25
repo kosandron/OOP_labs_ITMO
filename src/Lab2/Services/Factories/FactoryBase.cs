@@ -18,9 +18,5 @@ public class FactoryBase<T> : IComponentFactory<T>
     public T? CreateByName(string name)
     {
         return _components.FirstOrDefault(component => component.Name.Equals(name, StringComparison.OrdinalIgnoreCase))?.DeepCopy();
-
-        // return _components.FirstOrDefault(component => component.Name.Equals(name, StringComparison.OrdinalIgnoreCase))?.DeepCopy();
-
-        // error: Unable to lift conditional access expression type 'T?' to nullable type if ?.
     }
 }
