@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
 using Itmo.ObjectOrientedProgramming.Lab2.Enums;
+using Itmo.ObjectOrientedProgramming.Lab2.Exceptions;
 using Itmo.ObjectOrientedProgramming.Lab2.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entities;
@@ -20,18 +20,23 @@ public class MotherBoard : IComponent, ICloneable<MotherBoard>, ICopyable<Mother
     private Bios _bios;
 
     public MotherBoard(
-        string name,
-        Socket cpuSocket,
+        string? name,
+        Socket? cpuSocket,
         IList<PCIETypes>? pciLines,
         int sataPorts,
-        XMP chipset,
+        XMP? chipset,
         DDRStandarts ddrStandart,
         int memorySlotsCount,
         MemoryFormFactorTypes memoryFormFactor,
         MotherBoardFormFactorTypes motherBoardFormFactor,
-        Bios bios)
+        Bios? bios)
     {
-        if (cpuSocket == null)
+        if (name is null)
+        {
+            throw new ArgumentNullException(nameof(name));
+        }
+
+        if (cpuSocket is null)
         {
             throw new ArgumentNullException(nameof(cpuSocket));
         }
@@ -51,12 +56,12 @@ public class MotherBoard : IComponent, ICloneable<MotherBoard>, ICopyable<Mother
             throw new ArgumentNullException(nameof(ddrStandart));
         }
 
-        if (chipset == null)
+        if (chipset is null)
         {
             throw new ArgumentNullException(nameof(chipset));
         }
 
-        if (bios == null)
+        if (bios is null)
         {
             throw new ArgumentNullException(nameof(bios));
         }

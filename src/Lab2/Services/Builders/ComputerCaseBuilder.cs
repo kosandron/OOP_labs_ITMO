@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
 using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 using Itmo.ObjectOrientedProgramming.Lab2.Enums;
+using Itmo.ObjectOrientedProgramming.Lab2.Exceptions;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Builders;
 
@@ -81,31 +81,6 @@ public class ComputerCaseBuilder
 
     public ComputerCase Build()
     {
-        if (_name == null)
-        {
-            throw new ArgumentNullException(nameof(_name));
-        }
-
-        if (_maxVideoCardWidth <= 0)
-        {
-            throw new NegativeValueException("Maximal videocard width is less than 0!");
-        }
-
-        if (_maxVideoCardHeight <= 0)
-        {
-            throw new NegativeValueException("Maximal videocard height is less than 0!");
-        }
-
-        if (_supportedFormFactorTypes == null)
-        {
-            throw new ArgumentNullException(nameof(_supportedFormFactorTypes));
-        }
-
-        if (_size == CaseSize.None)
-        {
-            throw new ArgumentNullException(nameof(_size));
-        }
-
         return new ComputerCase(_name, _maxVideoCardWidth, _maxVideoCardHeight, _supportedFormFactorTypes, _size);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
-using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
 using Itmo.ObjectOrientedProgramming.Lab2.Enums;
+using Itmo.ObjectOrientedProgramming.Lab2.Exceptions;
 using Itmo.ObjectOrientedProgramming.Lab2.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entities;
@@ -12,9 +12,14 @@ public class Ssd : IComponent, ICloneable<Ssd>, ICopyable<Ssd>
     private readonly int _maxSpeed;
     private readonly PowerConsumption _powerConsumption;
 
-    public Ssd(string name, PCIETypes? pcieType, int memory, int maxSpeed, PowerConsumption powerConsumption)
+    public Ssd(string? name, PCIETypes? pcieType, int memory, int maxSpeed, PowerConsumption? powerConsumption)
     {
-        if (powerConsumption == null)
+        if (name is null)
+        {
+            throw new ArgumentNullException(nameof(name));
+        }
+
+        if (powerConsumption is null)
         {
             throw new ArgumentNullException(nameof(powerConsumption));
         }

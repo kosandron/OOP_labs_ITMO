@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
+using Itmo.ObjectOrientedProgramming.Lab2.Exceptions;
 using Itmo.ObjectOrientedProgramming.Lab2.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entities;
@@ -12,31 +12,31 @@ public class CpuCooler : IComponent, ICloneable<CpuCooler>, ICopyable<CpuCooler>
     private IList<Socket> _supportedSockedList;
     private TDP _powerDissipation;
 
-    public CpuCooler(string name, int size, IList<Socket> supportedSockedList, TDP powerDissipation)
+    public CpuCooler(string? name, int size, IList<Socket>? supportedSockedList, TDP? powerDissipation)
     {
+        if (name is null)
+        {
+            throw new ArgumentNullException(nameof(name));
+        }
+
         if (size <= 0)
         {
             throw new NegativeValueException("Size is less than null!");
         }
 
-        if (supportedSockedList == null)
+        if (supportedSockedList?.Count < 1)
         {
-            throw new ArgumentNullException(nameof(supportedSockedList));
+            throw new EmptyCollectionException("Cooler doesn`t support any socket");
         }
 
-        if (supportedSockedList.Count < 1)
-        {
-            throw new ArgumentException("Cooler doesn`t support any socket");
-        }
-
-        if (powerDissipation == null)
+        if (powerDissipation is null)
         {
             throw new ArgumentNullException(nameof(powerDissipation));
         }
 
         Name = name;
         _size = size;
-        _supportedSockedList = supportedSockedList;
+        _supportedSockedList = supportedSockedList ?? throw new ArgumentNullException(nameof(supportedSockedList));
         _powerDissipation = powerDissipation;
     }
 

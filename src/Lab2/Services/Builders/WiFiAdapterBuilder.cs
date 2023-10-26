@@ -67,26 +67,6 @@ public class WiFiAdapterBuilder
 
     public WiFiAdapter Build()
     {
-        if (_name == null)
-        {
-            throw new ArgumentNullException(nameof(_name));
-        }
-
-        if (_version == null)
-        {
-            throw new ArgumentNullException(nameof(_version));
-        }
-
-        if (_pcieType == PCIETypes.None)
-        {
-            throw new ArgumentNullException(nameof(_pcieType));
-        }
-
-        if (_powerConsumption == null)
-        {
-            throw new ArgumentNullException(nameof(_powerConsumption));
-        }
-
         return new WiFiAdapter(_name, _version, _hasBuiltInModule, _pcieType, _powerConsumption);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
-using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
 using Itmo.ObjectOrientedProgramming.Lab2.Enums;
+using Itmo.ObjectOrientedProgramming.Lab2.Exceptions;
 using Itmo.ObjectOrientedProgramming.Lab2.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entities;
@@ -14,8 +14,13 @@ public class VideoCard : IComponent, ICloneable<VideoCard>, ICopyable<VideoCard>
     private readonly Frequency _chipFrequency;
     private readonly PowerConsumption _powerConsumption;
 
-    public VideoCard(string name, int width, int height, int memory, PCIETypes pcieType, Frequency chipFrequency, PowerConsumption powerConsumption)
+    public VideoCard(string? name, int width, int height, int memory, PCIETypes pcieType, Frequency? chipFrequency, PowerConsumption? powerConsumption)
     {
+        if (name is null)
+        {
+            throw new ArgumentNullException(nameof(name));
+        }
+
         if (width <= 0)
         {
             throw new NegativeValueException("Width is less than 0!");
@@ -26,12 +31,12 @@ public class VideoCard : IComponent, ICloneable<VideoCard>, ICopyable<VideoCard>
             throw new NegativeValueException("Height is less than 0!");
         }
 
-        if (chipFrequency == null)
+        if (chipFrequency is null)
         {
             throw new ArgumentNullException(nameof(chipFrequency));
         }
 
-        if (powerConsumption == null)
+        if (powerConsumption is null)
         {
             throw new ArgumentNullException(nameof(powerConsumption));
         }

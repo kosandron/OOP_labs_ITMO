@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
+using Itmo.ObjectOrientedProgramming.Lab2.Exceptions;
+using Itmo.ObjectOrientedProgramming.Lab2.Services.ComputerValidator;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entities;
 
@@ -11,22 +12,35 @@ public class Bios : IComponent, ICloneable<Bios>, ICopyable<Bios>
     private string _version;
     private IList<string> _supportedCpuList;
 
-    public Bios(string name, string type, string version, IList<string> supportedCpuList)
+    public Bios(string? name, string? type, string? version, IList<string>? supportedCpuList)
     {
-        if (supportedCpuList == null)
+        if (name is null)
         {
-            throw new ArgumentNullException(nameof(supportedCpuList));
+            throw new ArgumentNullException(nameof(name));
         }
 
-        if (supportedCpuList.Count == 0)
+        if (type is null)
         {
-            throw new NegativeValueException("There are no one supported CPU!");
+            throw new ArgumentNullException(nameof(type));
         }
+
+        if (version is null)
+        {
+            throw new ArgumentNullException(nameof(version));
+        }
+
+        if (supportedCpuList?.Count == 0)
+        {
+            throw new EmptyCollectionException("There are no one supported CPU!");
+        }
+
+        var notSupportedCpuValidator = new NotSupportedCpu();
+        notSupportedCpuValidator.Validate(supportedCpuList);
 
         Name = name;
         _type = type;
         _version = version;
-        _supportedCpuList = supportedCpuList;
+        _supportedCpuList = supportedCpuList ?? throw new ArgumentNullException(nameof(supportedCpuList));
     }
 
     private Bios(Bios other)

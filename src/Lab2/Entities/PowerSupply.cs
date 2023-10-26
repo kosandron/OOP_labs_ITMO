@@ -7,9 +7,14 @@ public class PowerSupply : IComponent, ICloneable<PowerSupply>, ICopyable<PowerS
 {
     private readonly PowerConsumption _powerConsumption;
 
-    public PowerSupply(string name, PowerConsumption powerConsumption)
+    public PowerSupply(string? name, PowerConsumption? powerConsumption)
     {
-        if (powerConsumption == null)
+        if (name is null)
+        {
+            throw new ArgumentNullException(nameof(name));
+        }
+
+        if (powerConsumption is null)
         {
             throw new ArgumentNullException(nameof(powerConsumption));
         }

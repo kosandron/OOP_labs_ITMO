@@ -97,46 +97,6 @@ public class CpuBuilder
 
     public Cpu Build()
     {
-        if (_name == null)
-        {
-            throw new ArgumentNullException(nameof(_name));
-        }
-
-        if (_cerrCount < 1)
-        {
-            throw new ArgumentException("Less than 1 cerr!");
-        }
-
-        if (_cerrFrequency == null)
-        {
-            throw new ArgumentNullException(nameof(_cerrFrequency));
-        }
-
-        if (_socket == null)
-        {
-            throw new ArgumentNullException(nameof(_socket));
-        }
-
-        if (_baseFrequency == null)
-        {
-            throw new ArgumentNullException(nameof(_baseFrequency));
-        }
-
-        if (_maxFrequency == null)
-        {
-            throw new ArgumentNullException(nameof(_maxFrequency));
-        }
-
-        if (_tdp == null)
-        {
-            throw new ArgumentNullException(nameof(_tdp));
-        }
-
-        if (_powerConsumption == null)
-        {
-            throw new ArgumentNullException(nameof(_powerConsumption));
-        }
-
         return new Cpu(
             _name,
             _cerrCount,

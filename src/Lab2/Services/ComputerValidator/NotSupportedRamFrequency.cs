@@ -16,6 +16,6 @@ public class NotSupportedRamFrequency : IComputerBuildProblem
             throw new ArgumentNullException(nameof(computer));
         }
 
-        return computer.Ram.XMP.XmpFrequency.Value <= computer.MotherBoard.Chipset.XmpFrequency.Value;
+        return computer.Ram.Frequency.Value <= computer.MotherBoard.Chipset.XmpFrequency.Value;
     }
 }

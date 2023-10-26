@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
+namespace Itmo.ObjectOrientedProgramming.Lab2.Exceptions;
 
 public class NegativeValueException : ArgumentException
 {

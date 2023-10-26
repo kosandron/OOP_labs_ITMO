@@ -1,5 +1,4 @@
 ﻿using System;
-using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
 using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 using Itmo.ObjectOrientedProgramming.Lab2.Enums;
 using Itmo.ObjectOrientedProgramming.Lab2.Models;
@@ -78,36 +77,6 @@ public class VideoCardBuilder
 
     public VideoCard Build()
     {
-        if (_name == null)
-        {
-            throw new ArgumentNullException(nameof(_name));
-        }
-
-        if (_width <= 0)
-        {
-            throw new NegativeValueException("Width is less than 0!");
-        }
-
-        if (_height <= 0)
-        {
-            throw new NegativeValueException("Height is less than 0!");
-        }
-
-        if (_pcieType == PCIETypes.None)
-        {
-            throw new ArgumentNullException(nameof(_pcieType));
-        }
-
-        if (_chipFrequency == null)
-        {
-            throw new ArgumentNullException(nameof(_chipFrequency));
-        }
-
-        if (_powerConsumption == null)
-        {
-            throw new ArgumentNullException(nameof(_powerConsumption));
-        }
-
         return new VideoCard(_name, _width, _height, _memory, _pcieType, _chipFrequency, _powerConsumption);
     }
 }

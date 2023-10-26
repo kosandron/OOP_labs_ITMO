@@ -51,26 +51,6 @@ public class BiosBuilder : IBiosBuilder
 
     public Bios Build()
     {
-        if (_name == null)
-        {
-            throw new ArgumentNullException(nameof(_name));
-        }
-
-        if (_type == null)
-        {
-            throw new ArgumentNullException(nameof(_type));
-        }
-
-        if (_version == null)
-        {
-            throw new ArgumentNullException(nameof(_version));
-        }
-
-        if (_supportedCpuList == null)
-        {
-            throw new ArgumentNullException(nameof(_supportedCpuList));
-        }
-
         return new Bios(_name, _type, _version, _supportedCpuList);
     }
 }

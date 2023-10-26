@@ -6,16 +6,22 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Entities;
 
 public class Ram : IComponent, ICloneable<Ram>, ICopyable<Ram>
 {
-    private readonly XMP _xmp;
+    private readonly Frequency _frequency;
+    private readonly XMP? _xmp;
     private readonly MemoryFormFactorTypes _formFactor;
     private readonly DDRStandarts _ddrStandart;
     private readonly PowerConsumption _powerConsumption;
 
-    public Ram(string name, XMP xmp, MemoryFormFactorTypes formFactor, DDRStandarts ddrStandart, PowerConsumption powerConsumption)
+    public Ram(string? name, Frequency? frequency, XMP? xmp, MemoryFormFactorTypes formFactor, DDRStandarts ddrStandart, PowerConsumption? powerConsumption)
     {
-        if (xmp == null)
+        if (name is null)
         {
-            throw new ArgumentNullException(nameof(xmp));
+            throw new ArgumentNullException(nameof(name));
+        }
+
+        if (frequency is null)
+        {
+            throw new ArgumentNullException(nameof(frequency));
         }
 
         if (formFactor == MemoryFormFactorTypes.None)
@@ -23,17 +29,18 @@ public class Ram : IComponent, ICloneable<Ram>, ICopyable<Ram>
             throw new ArgumentNullException(nameof(formFactor));
         }
 
-        if (ddrStandart == DDRStandarts.None)
+        if (ddrStandart is DDRStandarts.None)
         {
             throw new ArgumentNullException(nameof(ddrStandart));
         }
 
-        if (powerConsumption == null)
+        if (powerConsumption is null)
         {
             throw new ArgumentNullException(nameof(powerConsumption));
         }
 
         Name = name;
+        _frequency = frequency;
         _xmp = xmp;
         _formFactor = formFactor;
         _ddrStandart = ddrStandart;
@@ -49,13 +56,15 @@ public class Ram : IComponent, ICloneable<Ram>, ICopyable<Ram>
 
         Name = other.Name;
         _xmp = other._xmp;
+        _frequency = other._frequency;
         _formFactor = other._formFactor;
         _ddrStandart = other._ddrStandart;
         _powerConsumption = other._powerConsumption;
     }
 
     public string Name { get; init; }
-    public XMP XMP => _xmp;
+    public XMP? XMP => _xmp;
+    public Frequency Frequency => _frequency;
     public MemoryFormFactorTypes FormFactor => _formFactor;
     public DDRStandarts DdrStandart => _ddrStandart;
     public PowerConsumption PowerConsumption => _powerConsumption;
@@ -63,6 +72,6 @@ public class Ram : IComponent, ICloneable<Ram>, ICopyable<Ram>
     public Ram Clone() => new Ram(this);
     public Ram DeepCopy()
     {
-        return new Ram(Name, XMP.DeepCopy(), FormFactor, DdrStandart, PowerConsumption.DeepCopy());
+        return new Ram(Name, _frequency.DeepCopy(), XMP?.DeepCopy(), FormFactor, DdrStandart, PowerConsumption.DeepCopy());
     }
 }

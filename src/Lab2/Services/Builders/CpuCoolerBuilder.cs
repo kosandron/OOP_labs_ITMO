@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
 using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 using Itmo.ObjectOrientedProgramming.Lab2.Models;
 
@@ -54,31 +53,6 @@ public class CpuCoolerBuilder
 
     public CpuCooler Build()
     {
-        if (_name == null)
-        {
-            throw new ArgumentNullException(nameof(_name));
-        }
-
-        if (_size <= 0)
-        {
-            throw new NegativeValueException("Size is less than null!");
-        }
-
-        if (_supportedSockedList == null)
-        {
-            throw new ArgumentNullException(nameof(_supportedSockedList));
-        }
-
-        if (_supportedSockedList.Count < 1)
-        {
-            throw new ArgumentException("Cooler doesn`t support any socket");
-        }
-
-        if (_powerDissipation == null)
-        {
-            throw new ArgumentNullException(nameof(_powerDissipation));
-        }
-
         return new CpuCooler(_name, _size, _supportedSockedList, _powerDissipation);
     }
 }

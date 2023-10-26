@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
 using Itmo.ObjectOrientedProgramming.Lab2.Enums;
+using Itmo.ObjectOrientedProgramming.Lab2.Exceptions;
+using Itmo.ObjectOrientedProgramming.Lab2.Services.ComputerValidator;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entities;
 
@@ -13,8 +14,13 @@ public class ComputerCase : IComponent, ICloneable<ComputerCase>, ICopyable<Comp
     private readonly IList<MotherBoardFormFactorTypes> _supportedFormFactorTypes;
     private readonly CaseSize _size;
 
-    public ComputerCase(string name, int maxVideoCardWidth, int maxVideoCardHeight, IList<MotherBoardFormFactorTypes> supportedFormFactorTypes, CaseSize size)
+    public ComputerCase(string? name, int maxVideoCardWidth, int maxVideoCardHeight, IList<MotherBoardFormFactorTypes>? supportedFormFactorTypes, CaseSize size)
     {
+        if (name is null)
+        {
+            throw new ArgumentNullException(nameof(name));
+        }
+
         if (maxVideoCardWidth <= 0)
         {
             throw new NegativeValueException("Maximal videocard width is less than 0!");
@@ -25,20 +31,25 @@ public class ComputerCase : IComponent, ICloneable<ComputerCase>, ICopyable<Comp
             throw new NegativeValueException("Maximal videocard height is less than 0!");
         }
 
-        if (supportedFormFactorTypes == null)
+        if (supportedFormFactorTypes?.Count == 0)
         {
-            throw new ArgumentNullException(nameof(supportedFormFactorTypes));
+            throw new EmptyCollectionException("There are no one supported motherboard!");
         }
 
-        if (supportedFormFactorTypes.Count == 0)
+        if (!new ComputerCaseSizeValidator().IsValidSize(supportedFormFactorTypes, size))
         {
-            throw new ArgumentException("There are no one supported motherboard!");
+            throw new ArgumentException("Not valid computer case size!");
+        }
+
+        if (size == CaseSize.None)
+        {
+            throw new ArgumentNullException(nameof(size));
         }
 
         Name = name;
         _maxVideoCardWidth = maxVideoCardWidth;
         _maxVideoCardHeight = maxVideoCardHeight;
-        _supportedFormFactorTypes = supportedFormFactorTypes;
+        _supportedFormFactorTypes = supportedFormFactorTypes ?? throw new ArgumentNullException(nameof(supportedFormFactorTypes));
         _size = size;
     }
 

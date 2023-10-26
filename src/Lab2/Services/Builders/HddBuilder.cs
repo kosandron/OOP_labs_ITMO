@@ -1,5 +1,4 @@
 ﻿using System;
-using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
 using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 using Itmo.ObjectOrientedProgramming.Lab2.Models;
 
@@ -53,26 +52,6 @@ public class HddBuilder
 
     public Hdd Build()
     {
-        if (_name == null)
-        {
-            throw new ArgumentNullException(nameof(_name));
-        }
-
-        if (_powerConsumption == null)
-        {
-            throw new ArgumentNullException(nameof(_powerConsumption));
-        }
-
-        if (_memory <= 0)
-        {
-            throw new NegativeValueException("Memory is less than or not declared!");
-        }
-
-        if (_spindleSpeed <= 0)
-        {
-            throw new NegativeValueException("Spindle speed is less than 0 or not declared!");
-        }
-
         return new Hdd(_name, _memory, _spindleSpeed, _powerConsumption);
     }
 }

@@ -1,5 +1,5 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
-using Itmo.ObjectOrientedProgramming.Lab2.Entities;
+﻿using Itmo.ObjectOrientedProgramming.Lab2.Entities;
+using Itmo.ObjectOrientedProgramming.Lab2.Exceptions;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Models;
 

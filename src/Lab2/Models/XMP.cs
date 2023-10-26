@@ -1,5 +1,6 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
+﻿using System;
 using Itmo.ObjectOrientedProgramming.Lab2.Entities;
+using Itmo.ObjectOrientedProgramming.Lab2.Exceptions;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Models;
 
@@ -11,6 +12,16 @@ public class XMP : ICopyable<XMP>
 
     public XMP(Frequency frequency, int voltage, string timings)
     {
+        if (frequency is null)
+        {
+            throw new ArgumentNullException(nameof(frequency));
+        }
+
+        if (timings is null)
+        {
+            throw new ArgumentNullException(nameof(timings));
+        }
+
         if (voltage <= 0)
         {
             throw new NegativeValueException("Voltage is less than null!");

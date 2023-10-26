@@ -23,6 +23,8 @@ public class ComputerValidator : IComputerValidator
         _problems.Add(new NotSupportedRamFrequency());
         _problems.Add(new NoVideoCardProblem());
         _problems.Add(new PowerConsumptionProblem());
+        _problems.Add(new NotSuitableXMPChipset());
+        _problems.Add(new NotSuitableVideoCardToComputerCaseSize());
     }
 
     public IList<IComputerBuildProblem> Validate(Computer computer)

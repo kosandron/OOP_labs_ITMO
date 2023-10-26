@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
 using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 using Itmo.ObjectOrientedProgramming.Lab2.Enums;
 using Itmo.ObjectOrientedProgramming.Lab2.Models;
@@ -103,51 +102,6 @@ public class MotherBoardBuilder
 
     public MotherBoard Build()
     {
-        if (_name == null)
-        {
-            throw new ArgumentNullException(nameof(_name));
-        }
-
-        if (_cpuSocket == null)
-        {
-            throw new ArgumentNullException(nameof(_cpuSocket));
-        }
-
-        if (_chipset == null)
-        {
-            throw new ArgumentNullException(nameof(_chipset));
-        }
-
-        if (_bios == null)
-        {
-            throw new ArgumentNullException(nameof(_bios));
-        }
-
-        if (_sataPorts < 0)
-        {
-            throw new NegativeValueException("SATA ports count is less than 0!");
-        }
-
-        if (_memorySlotsCount < 1)
-        {
-            throw new ArgumentException("Memory slots count is less than 1!");
-        }
-
-        if (_memoryFormFactor == MemoryFormFactorTypes.None)
-        {
-            throw new ArgumentNullException(nameof(_memoryFormFactor));
-        }
-
-        if (_motherBoardFormFactor == MotherBoardFormFactorTypes.None)
-        {
-            throw new ArgumentNullException(nameof(_motherBoardFormFactor));
-        }
-
-        if (_ddrStandart == DDRStandarts.None)
-        {
-            throw new ArgumentNullException(nameof(_ddrStandart));
-        }
-
         return new MotherBoard(
             _name,
             _cpuSocket,

@@ -8,6 +8,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Builders;
 public class RamBuilder
 {
     private string? _name;
+    private Frequency? _frequency;
     private XMP? _xmp;
     private MemoryFormFactorTypes _formFactor = MemoryFormFactorTypes.None;
     private DDRStandarts _ddrStandart = DDRStandarts.None;
@@ -23,6 +24,7 @@ public class RamBuilder
         }
 
         _name = otherRam.Name;
+        _frequency = otherRam.Frequency;
         _xmp = otherRam.XMP;
         _formFactor = otherRam.FormFactor;
         _ddrStandart = otherRam.DdrStandart;
@@ -32,6 +34,12 @@ public class RamBuilder
     public RamBuilder WithName(string name)
     {
         _name = name;
+        return this;
+    }
+
+    public RamBuilder WithFrequency(Frequency frequency)
+    {
+        _frequency = frequency;
         return this;
     }
 
@@ -61,31 +69,12 @@ public class RamBuilder
 
     public Ram Build()
     {
-        if (_name == null)
-        {
-            throw new ArgumentNullException(nameof(_name));
-        }
-
-        if (_xmp == null)
-        {
-            throw new ArgumentNullException(nameof(_xmp));
-        }
-
-        if (_formFactor == MemoryFormFactorTypes.None)
-        {
-            throw new ArgumentNullException(nameof(_formFactor));
-        }
-
-        if (_ddrStandart == DDRStandarts.None)
-        {
-            throw new ArgumentNullException(nameof(_ddrStandart));
-        }
-
-        if (_powerConsumption == null)
-        {
-            throw new ArgumentNullException(nameof(_powerConsumption));
-        }
-
-        return new Ram(_name, _xmp, _formFactor, _ddrStandart, _powerConsumption);
+        return new Ram(
+            _name,
+            _frequency,
+            _xmp,
+            _formFactor,
+            _ddrStandart,
+            _powerConsumption);
     }
 }

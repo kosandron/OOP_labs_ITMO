@@ -11,11 +11,26 @@ public class WiFiAdapter : IComponent, ICloneable<WiFiAdapter>, ICopyable<WiFiAd
     private string _version;
     private bool _hasBuiltInModule;
 
-    public WiFiAdapter(string name, string version, bool hasBuiltInModule, PCIETypes pcieType, PowerConsumption powerConsumption)
+    public WiFiAdapter(string? name, string? version, bool hasBuiltInModule, PCIETypes pcieType, PowerConsumption? powerConsumption)
     {
-        if (powerConsumption == null)
+        if (name is null)
+        {
+            throw new ArgumentNullException(nameof(name));
+        }
+
+        if (version is null)
+        {
+            throw new ArgumentNullException(nameof(version));
+        }
+
+        if (powerConsumption is null)
         {
             throw new ArgumentNullException(nameof(powerConsumption));
+        }
+
+        if (pcieType == PCIETypes.None)
+        {
+            throw new ArgumentNullException(nameof(pcieType));
         }
 
         Name = name;
@@ -27,7 +42,7 @@ public class WiFiAdapter : IComponent, ICloneable<WiFiAdapter>, ICopyable<WiFiAd
 
     private WiFiAdapter(WiFiAdapter other)
     {
-        if (other == null)
+        if (other is null)
         {
             throw new ArgumentNullException(nameof(other));
         }

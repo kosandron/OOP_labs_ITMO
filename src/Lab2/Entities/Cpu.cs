@@ -15,47 +15,52 @@ public class Cpu : IComponent, ICloneable<Cpu>, ICopyable<Cpu>
     private PowerConsumption _powerConsumption;
 
     public Cpu(
-        string name,
+        string? name,
         int cerrCount,
-        Frequency cerrFrequency,
-        Socket socket,
+        Frequency? cerrFrequency,
+        Socket? socket,
         bool hasVideoCerr,
-        Frequency baseFrequency,
-        Frequency maxFrequency,
-        TDP tdp,
-        PowerConsumption powerConsumption)
+        Frequency? baseFrequency,
+        Frequency? maxFrequency,
+        TDP? tdp,
+        PowerConsumption? powerConsumption)
     {
+        if (name is null)
+        {
+            throw new ArgumentNullException(nameof(name));
+        }
+
         if (cerrCount < 1)
         {
             throw new ArgumentException("Less than 1 cerr!");
         }
 
-        if (cerrFrequency == null)
+        if (cerrFrequency is null)
         {
             throw new ArgumentNullException(nameof(cerrFrequency));
         }
 
-        if (socket == null)
+        if (socket is null)
         {
             throw new ArgumentNullException(nameof(socket));
         }
 
-        if (baseFrequency == null)
+        if (baseFrequency is null)
         {
             throw new ArgumentNullException(nameof(baseFrequency));
         }
 
-        if (maxFrequency == null)
+        if (maxFrequency is null)
         {
             throw new ArgumentNullException(nameof(maxFrequency));
         }
 
-        if (tdp == null)
+        if (tdp is null)
         {
             throw new ArgumentNullException(nameof(tdp));
         }
 
-        if (powerConsumption == null)
+        if (powerConsumption is null)
         {
             throw new ArgumentNullException(nameof(powerConsumption));
         }

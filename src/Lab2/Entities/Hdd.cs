@@ -1,5 +1,5 @@
 ﻿using System;
-using Itmo.ObjectOrientedProgramming.Lab1.Exceptions;
+using Itmo.ObjectOrientedProgramming.Lab2.Exceptions;
 using Itmo.ObjectOrientedProgramming.Lab2.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entities;
@@ -10,9 +10,14 @@ public class Hdd : IComponent, ICloneable<Hdd>, ICopyable<Hdd>
     private readonly int _spindleSpeed;
     private readonly PowerConsumption _powerConsumption;
 
-    public Hdd(string name, int memory, int spindleSpeed, PowerConsumption powerConsumption)
+    public Hdd(string? name, int memory, int spindleSpeed, PowerConsumption? powerConsumption)
     {
-        if (powerConsumption == null)
+        if (name is null)
+        {
+            throw new ArgumentNullException(nameof(name));
+        }
+
+        if (powerConsumption is null)
         {
             throw new ArgumentNullException(nameof(powerConsumption));
         }

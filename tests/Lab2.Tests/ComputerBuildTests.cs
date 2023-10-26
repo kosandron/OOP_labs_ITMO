@@ -23,17 +23,18 @@ public class ComputerBuildTests
 
     public ComputerBuildTests()
     {
-        _biosFactory = new BiosFactory();
-        _computerCaseFactory = new ComputerCaseFactory();
-        _cpuCoolerFactory = new CpuCoolerFactory();
-        _cpuFactory = new CpuFactory();
-        _hddFactory = new HddFactory();
-        _motherBoardFactory = new MotherBoardFactory();
-        _powerSupplyFactory = new PowerSupplyFactory();
-        _ramFactory = new RamFactory();
-        _ssdFactory = new SsdFactory();
-        _videoCardFactory = new VideoCardFactory();
-        _wiFiAdapterFactory = new WiFiAdapterFactory();
+        var components = new SupportedComponents();
+        _biosFactory = new BiosFactory(components.SupportedBiosList);
+        _computerCaseFactory = new ComputerCaseFactory(components.SupportedComputerCaseList);
+        _cpuCoolerFactory = new CpuCoolerFactory(components.SupportedCpuCoolerList);
+        _cpuFactory = new CpuFactory(components.SupportedCpuList);
+        _hddFactory = new HddFactory(components.SupportedHddList);
+        _motherBoardFactory = new MotherBoardFactory(components.SupportedMotherBoardList);
+        _powerSupplyFactory = new PowerSupplyFactory(components.SupportedPowerSupplyList);
+        _ramFactory = new RamFactory(components.SupportedRamList);
+        _ssdFactory = new SsdFactory(components.SupportedSsdList);
+        _videoCardFactory = new VideoCardFactory(components.SupportedVideoCardList);
+        _wiFiAdapterFactory = new WiFiAdapterFactory(components.SupportedWiFiAdapterList);
         var builder = new ComputerBuilder();
         _computer = builder
             .WithComputerCase(_computerCaseFactory.CreateByName("Cougar Pro"))
