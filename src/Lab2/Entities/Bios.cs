@@ -14,17 +14,17 @@ public class Bios : IComponent, ICloneable<Bios>, ICopyable<Bios>
 
     public Bios(string? name, string? type, string? version, IList<string>? supportedCpuList)
     {
-        if (name is null)
+        if (string.IsNullOrEmpty(name))
         {
             throw new ArgumentNullException(nameof(name));
         }
 
-        if (type is null)
+        if (string.IsNullOrEmpty(type))
         {
             throw new ArgumentNullException(nameof(type));
         }
 
-        if (version is null)
+        if (string.IsNullOrEmpty(version))
         {
             throw new ArgumentNullException(nameof(version));
         }
@@ -45,7 +45,7 @@ public class Bios : IComponent, ICloneable<Bios>, ICopyable<Bios>
 
     private Bios(Bios other)
     {
-        if (other == null)
+        if (other is null)
         {
             throw new ArgumentNullException(nameof(other));
         }

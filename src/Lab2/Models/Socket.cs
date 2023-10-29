@@ -11,12 +11,12 @@ public class Socket : ICopyable<Socket>
 
     public Socket(string version)
     {
-        if (version is null)
+        if (string.IsNullOrEmpty(version))
         {
             throw new ArgumentNullException(nameof(version));
         }
 
-        if (!new SupportedSocket().ComponentList.Any(socketVersion => socketVersion.Equals(version, StringComparison.OrdinalIgnoreCase)))
+        if (!new SupportedSocket().SocketVersionsList.Any(socket => socket.Equals(version, StringComparison.OrdinalIgnoreCase)))
         {
             throw new ArgumentException("This socket has not ever exist!");
         }

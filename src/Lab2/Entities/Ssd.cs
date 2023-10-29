@@ -14,7 +14,7 @@ public class Ssd : IComponent, ICloneable<Ssd>, ICopyable<Ssd>
 
     public Ssd(string? name, PCIETypes? pcieType, int memory, int maxSpeed, PowerConsumption? powerConsumption)
     {
-        if (name is null)
+        if (string.IsNullOrEmpty(name))
         {
             throw new ArgumentNullException(nameof(name));
         }
@@ -43,7 +43,7 @@ public class Ssd : IComponent, ICloneable<Ssd>, ICopyable<Ssd>
 
     private Ssd(Ssd other)
     {
-        if (other == null)
+        if (other is null)
         {
             throw new ArgumentNullException(nameof(other));
         }

@@ -25,7 +25,7 @@ public class Cpu : IComponent, ICloneable<Cpu>, ICopyable<Cpu>
         TDP? tdp,
         PowerConsumption? powerConsumption)
     {
-        if (name is null)
+        if (string.IsNullOrEmpty(name))
         {
             throw new ArgumentNullException(nameof(name));
         }
@@ -78,7 +78,7 @@ public class Cpu : IComponent, ICloneable<Cpu>, ICopyable<Cpu>
 
     private Cpu(Cpu other)
     {
-        if (other == null)
+        if (other is null)
         {
             throw new ArgumentNullException(nameof(other));
         }

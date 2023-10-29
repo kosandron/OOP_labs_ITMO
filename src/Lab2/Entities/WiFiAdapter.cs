@@ -13,12 +13,12 @@ public class WiFiAdapter : IComponent, ICloneable<WiFiAdapter>, ICopyable<WiFiAd
 
     public WiFiAdapter(string? name, string? version, bool hasBuiltInModule, PCIETypes pcieType, PowerConsumption? powerConsumption)
     {
-        if (name is null)
+        if (string.IsNullOrEmpty(name))
         {
             throw new ArgumentNullException(nameof(name));
         }
 
-        if (version is null)
+        if (string.IsNullOrEmpty(version))
         {
             throw new ArgumentNullException(nameof(version));
         }

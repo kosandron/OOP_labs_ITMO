@@ -16,7 +16,7 @@ public class VideoCard : IComponent, ICloneable<VideoCard>, ICopyable<VideoCard>
 
     public VideoCard(string? name, int width, int height, int memory, PCIETypes pcieType, Frequency? chipFrequency, PowerConsumption? powerConsumption)
     {
-        if (name is null)
+        if (string.IsNullOrEmpty(name))
         {
             throw new ArgumentNullException(nameof(name));
         }
@@ -52,7 +52,7 @@ public class VideoCard : IComponent, ICloneable<VideoCard>, ICopyable<VideoCard>
 
     private VideoCard(VideoCard other)
     {
-        if (other == null)
+        if (other is null)
         {
             throw new ArgumentNullException(nameof(other));
         }

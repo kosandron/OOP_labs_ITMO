@@ -12,7 +12,7 @@ public class Hdd : IComponent, ICloneable<Hdd>, ICopyable<Hdd>
 
     public Hdd(string? name, int memory, int spindleSpeed, PowerConsumption? powerConsumption)
     {
-        if (name is null)
+        if (string.IsNullOrEmpty(name))
         {
             throw new ArgumentNullException(nameof(name));
         }
@@ -40,7 +40,7 @@ public class Hdd : IComponent, ICloneable<Hdd>, ICopyable<Hdd>
 
     public Hdd(Hdd other)
     {
-        if (other == null)
+        if (other is null)
         {
             throw new ArgumentNullException(nameof(other));
         }

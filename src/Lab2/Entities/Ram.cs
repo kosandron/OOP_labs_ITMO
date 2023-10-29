@@ -14,7 +14,7 @@ public class Ram : IComponent, ICloneable<Ram>, ICopyable<Ram>
 
     public Ram(string? name, Frequency? frequency, XMP? xmp, MemoryFormFactorTypes formFactor, DDRStandarts ddrStandart, PowerConsumption? powerConsumption)
     {
-        if (name is null)
+        if (string.IsNullOrEmpty(name))
         {
             throw new ArgumentNullException(nameof(name));
         }
@@ -49,7 +49,7 @@ public class Ram : IComponent, ICloneable<Ram>, ICopyable<Ram>
 
     private Ram(Ram other)
     {
-        if (other == null)
+        if (other is null)
         {
             throw new ArgumentNullException(nameof(other));
         }

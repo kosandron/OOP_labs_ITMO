@@ -25,6 +25,7 @@ public class ComputerValidator : IComputerValidator
         _problems.Add(new PowerConsumptionProblem());
         _problems.Add(new NotSuitableXMPChipset());
         _problems.Add(new NotSuitableVideoCardToComputerCaseSize());
+        _problems.Add(new RamXmpAndStandartFrequencyValidator());
     }
 
     public IList<IComputerBuildProblem> Validate(Computer computer)

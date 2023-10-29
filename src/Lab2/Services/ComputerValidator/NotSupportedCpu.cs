@@ -15,6 +15,7 @@ public class NotSupportedCpu : INotSupportedCpuValidator
             throw new ArgumentNullException(nameof(supportedCpuList));
         }
 
+        var ds = new SupportedCpu();
         ImmutableList<Cpu> cpuList = new SupportedCpu().ComponentList;
         foreach (string cpu in supportedCpuList)
         {

@@ -9,7 +9,7 @@ public class PowerSupply : IComponent, ICloneable<PowerSupply>, ICopyable<PowerS
 
     public PowerSupply(string? name, PowerConsumption? powerConsumption)
     {
-        if (name is null)
+        if (string.IsNullOrEmpty(name))
         {
             throw new ArgumentNullException(nameof(name));
         }
@@ -25,7 +25,7 @@ public class PowerSupply : IComponent, ICloneable<PowerSupply>, ICopyable<PowerS
 
     private PowerSupply(PowerSupply other)
     {
-        if (other == null)
+        if (other is null)
         {
             throw new ArgumentNullException(nameof(other));
         }

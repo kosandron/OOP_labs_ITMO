@@ -16,7 +16,7 @@ public class ComputerCase : IComponent, ICloneable<ComputerCase>, ICopyable<Comp
 
     public ComputerCase(string? name, int maxVideoCardWidth, int maxVideoCardHeight, IList<MotherBoardFormFactorTypes>? supportedFormFactorTypes, CaseSize size)
     {
-        if (name is null)
+        if (string.IsNullOrEmpty(name))
         {
             throw new ArgumentNullException(nameof(name));
         }
@@ -55,7 +55,7 @@ public class ComputerCase : IComponent, ICloneable<ComputerCase>, ICopyable<Comp
 
     public ComputerCase(ComputerCase other)
     {
-        if (other == null)
+        if (other is null)
         {
             throw new ArgumentNullException(nameof(other));
         }
