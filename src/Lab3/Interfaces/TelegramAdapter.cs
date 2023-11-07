@@ -1,12 +1,13 @@
 ﻿using System;
+using Itmo.ObjectOrientedProgramming.Lab3.Entities;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.Entities.Messenger;
+namespace Itmo.ObjectOrientedProgramming.Lab3.Interfaces;
 
 public class TelegramAdapter : IAdressee
 {
-    private readonly Telegram _messenger;
+    private readonly ITelegram _messenger;
 
-    public TelegramAdapter(Telegram messenger)
+    public TelegramAdapter(ITelegram messenger)
     {
         if (messenger is null)
         {

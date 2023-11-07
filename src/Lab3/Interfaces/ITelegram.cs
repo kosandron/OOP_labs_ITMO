@@ -1,4 +1,4 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab3.Entities.Messenger;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab3.Interfaces;
 
 public interface ITelegram
 {

@@ -39,29 +39,4 @@ public class Message
     {
         return _header + '\n' + _text + '\n';
     }
-
-    public bool Equals(Message message)
-    {
-        if (message is null)
-        {
-            return false;
-        }
-
-        if (this == message)
-        {
-            return true;
-        }
-
-        if (this.GetType() != message.GetType())
-        {
-            return false;
-        }
-
-        return this.Header.Equals(message.Header, StringComparison.Ordinal) && this.Text.Equals(message.Text, StringComparison.Ordinal) && this.Rating == message.Rating;
-    }
-
-    public override int GetHashCode()
-    {
-        return (_header, _text, _rating).GetHashCode();
-    }
 }

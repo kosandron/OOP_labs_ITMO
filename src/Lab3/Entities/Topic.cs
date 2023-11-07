@@ -22,4 +22,14 @@ public class Topic
         _name = name;
         _adressee = adressee;
     }
+
+    public void SendMessage(Message message)
+    {
+        if (message is null)
+        {
+            throw new ArgumentNullException(nameof(message));
+        }
+
+        _adressee.GetMessage(message);
+    }
 }

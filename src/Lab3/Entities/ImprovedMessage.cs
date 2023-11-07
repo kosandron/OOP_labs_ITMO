@@ -55,29 +55,4 @@ public class ImprovedMessage
 
         _isReadStatus = true;
     }
-
-    public bool Equals(ImprovedMessage message)
-    {
-        if (message is null)
-        {
-            return false;
-        }
-
-        if (this == message)
-        {
-            return true;
-        }
-
-        if (this.GetType() != message.GetType())
-        {
-            return false;
-        }
-
-        return this._message.Equals(message._message);
-    }
-
-    public override int GetHashCode()
-    {
-        return _message.GetHashCode();
-    }
 }

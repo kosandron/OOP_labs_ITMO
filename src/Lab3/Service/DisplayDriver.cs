@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using Itmo.ObjectOrientedProgramming.Lab3.Entities;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.Entities.Display;
+namespace Itmo.ObjectOrientedProgramming.Lab3.Service;
 
 public class DisplayDriver : IDisplay
 {

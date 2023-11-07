@@ -40,7 +40,7 @@ public class User : IAdressee
             throw new ArgumentNullException(nameof(message));
         }
 
-        _messages.FirstOrDefault(x => x.Equals(new ImprovedMessage(message)))?.ChangeReadStatus();
+        _messages.FirstOrDefault(x => x.Message == message)?.ChangeReadStatus();
     }
 
     public bool GetMessageStatus(Message message)
