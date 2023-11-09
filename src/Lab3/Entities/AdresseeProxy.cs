@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Itmo.ObjectOrientedProgramming.Lab3.Exceptions;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entities;
 
-public class AdresseeProxy : IAdresseeProxy
+public class AdresseeProxy : IAdressee
 {
+    private readonly int _minRating = 100;
     private IAdressee _adressee;
 
     public AdresseeProxy(IAdressee adressee)
@@ -19,46 +17,21 @@ public class AdresseeProxy : IAdresseeProxy
         _adressee = adressee;
     }
 
-    public bool IsValidMessage(Message message, int minRating)
+    public bool IsValidMessage(Message message)
     {
         if (message is null)
         {
             throw new ArgumentNullException(nameof(message));
         }
 
-        if (minRating < 0)
-        {
-            throw new NegativeValueException(nameof(minRating));
-        }
-
-        return message.Rating >= minRating;
+        return message.Rating >= _minRating;
     }
 
-    public IEnumerable<Message> FilterByRating(IEnumerable<Message> messages, int minRating)
+    public void SendMessage(Message message)
     {
-        if (messages is null)
+        if (IsValidMessage(message))
         {
-            throw new ArgumentNullException(nameof(messages));
-        }
-
-        if (messages.Any(message => message is null))
-        {
-            throw new ArgumentNullException(nameof(messages));
-        }
-
-        if (minRating < 0)
-        {
-            throw new NegativeValueException(nameof(minRating));
-        }
-
-        return messages.Where(message => IsValidMessage(message, minRating));
-    }
-
-    public void TrySendMessage(Message message, int minRating)
-    {
-        if (IsValidMessage(message, minRating))
-        {
-            _adressee.GetMessage(message);
+            _adressee.SendMessage(message);
         }
     }
 }

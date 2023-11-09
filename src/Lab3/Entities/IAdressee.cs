@@ -2,5 +2,5 @@
 
 public interface IAdressee
 {
-    void GetMessage(Message message);
+    void SendMessage(Message message);
 }

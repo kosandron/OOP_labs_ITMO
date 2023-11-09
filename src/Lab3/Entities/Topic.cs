@@ -4,8 +4,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Entities;
 
 public class Topic
 {
-    private string _name;
-    private IAdressee _adressee;
+    private readonly string _name;
+    private readonly IAdressee _adressee;
 
     public Topic(string name, IAdressee adressee)
     {
@@ -23,6 +23,9 @@ public class Topic
         _adressee = adressee;
     }
 
+    public string Name => _name;
+    public IAdressee Adressee => _adressee;
+
     public void SendMessage(Message message)
     {
         if (message is null)
@@ -30,6 +33,6 @@ public class Topic
             throw new ArgumentNullException(nameof(message));
         }
 
-        _adressee.GetMessage(message);
+        _adressee.SendMessage(message);
     }
 }

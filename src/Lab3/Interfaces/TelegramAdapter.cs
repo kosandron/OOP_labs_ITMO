@@ -3,7 +3,7 @@ using Itmo.ObjectOrientedProgramming.Lab3.Entities;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Interfaces;
 
-public class TelegramAdapter : IAdressee
+public class TelegramAdapter : IMessanger
 {
     private readonly ITelegram _messenger;
 
@@ -17,7 +17,7 @@ public class TelegramAdapter : IAdressee
         _messenger = messenger;
     }
 
-    public void GetMessage(Message message)
+    public void WriteMessage(Message message)
     {
         if (message is null)
         {

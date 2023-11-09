@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab3.Exceptions;
 
@@ -7,8 +8,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Entities;
 
 public class User : IAdressee
 {
-    private string _name;
-    private List<ImprovedMessage> _messages;
+    private readonly string _name;
+    private readonly List<ImprovedMessage> _messages;
 
     public User(string name)
     {
@@ -22,8 +23,9 @@ public class User : IAdressee
     }
 
     public string Name => _name;
+    public ImmutableList<ImprovedMessage> Messages => _messages.ToImmutableList();
 
-    public void GetMessage(Message message)
+    public void SendMessage(Message message)
     {
         if (message is null)
         {
@@ -43,7 +45,7 @@ public class User : IAdressee
         _messages.FirstOrDefault(x => x.Message == message)?.ChangeReadStatus();
     }
 
-    public bool GetMessageStatus(Message message)
+    public bool SendMessageStatus(Message message)
     {
         if (message is null)
         {

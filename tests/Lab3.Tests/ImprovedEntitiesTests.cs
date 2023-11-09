@@ -8,22 +8,22 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Tests;
 public class ImprovedEntitiesTests
 {
     [Theory]
-    [InlineData(25, 1)]
-    [InlineData(50, 1)]
-    [InlineData(51, 0)]
-    [InlineData(75, 0)]
-    public void CheckGetMessage(int rating, int methodWorkCount)
+    [InlineData(25, 0)]
+    [InlineData(99, 0)]
+    [InlineData(100, 1)]
+    [InlineData(101, 1)]
+    public void CheckSendMessage(int messageRating, int methodWorkCount)
     {
         // Arrange
         IAdressee user = Substitute.For<IAdressee>();
         var userProxy = new AdresseeProxy(user);
-        var message = new Message("Lunch", "Borsh, Kotlet, Pure, Kompot", 50);
+        var message = new Message("Lunch", "Borsh, Kotlet, Pure, Kompot", messageRating);
 
         // Act
-        userProxy.TrySendMessage(message, rating);
+        userProxy.SendMessage(message);
 
         // Assert
-        user.Received(methodWorkCount).GetMessage(message);
+        user.Received(methodWorkCount).SendMessage(message);
     }
 
     [Fact]
@@ -36,7 +36,7 @@ public class ImprovedEntitiesTests
         var message = new Message("Lunch", "Borsh, Kotlet, Pure, Kompot", 50);
 
         // Act
-        loggedUser.GetMessage(message);
+        loggedUser.SendMessage(message);
 
         // Assert
         logger.Received(1).Log(message);
@@ -47,11 +47,11 @@ public class ImprovedEntitiesTests
     {
         // Arrange
         ITelegram telegram = Substitute.For<ITelegram>();
-        var telegramAdapter = new TelegramAdapter(telegram);
+        var messanger = new AdreseeMessanger(new TelegramAdapter(telegram));
         var message = new Message("Lunch", "Borsh, Kotlet, Pure, Kompot", 50);
 
         // Act
-        telegramAdapter.GetMessage(message);
+        messanger.SendMessage(message);
 
         // Assert
         telegram.Received(1).SendMessage("1f31g3h4j12j", 12345, message.BuildMessage());

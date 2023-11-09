@@ -8,9 +8,14 @@ public class Display : IDisplay
 {
     private readonly DisplayDriver _displayDriver;
 
-    public Display()
+    public Display(DisplayDriver displayDriver)
     {
-        _displayDriver = new DisplayDriver();
+        if (displayDriver is null)
+        {
+            throw new ArgumentNullException(nameof(displayDriver));
+        }
+
+        _displayDriver = displayDriver;
     }
 
     public void ClearOutput()

@@ -14,10 +14,10 @@ public class ReadMessageTests
         var message = new Message("Song", "Skibidi dop", 6);
 
         // Act
-        user.GetMessage(message);
+        user.SendMessage(message);
 
         // Assert
-        Assert.False(user.GetMessageStatus(message));
+        Assert.False(user.SendMessageStatus(message));
     }
 
     [Fact]
@@ -28,12 +28,12 @@ public class ReadMessageTests
         var message = new Message("Song", "Skibidi dop", 6);
 
         // Act
-        user.GetMessage(message);
+        user.SendMessage(message);
 
         // Assert
-        Assert.False(user.GetMessageStatus(message));
+        Assert.False(user.SendMessageStatus(message));
         user.MarkReadMessage(message);
-        Assert.True(user.GetMessageStatus(message));
+        Assert.True(user.SendMessageStatus(message));
     }
 
     [Fact]
@@ -44,12 +44,12 @@ public class ReadMessageTests
         var message = new Message("Song", "Skibidi dop", 6);
 
         // Act
-        user.GetMessage(message);
+        user.SendMessage(message);
 
         // Assert
-        Assert.False(user.GetMessageStatus(message));
+        Assert.False(user.SendMessageStatus(message));
         user.MarkReadMessage(message);
-        Assert.True(user.GetMessageStatus(message));
+        Assert.True(user.SendMessageStatus(message));
         Assert.Throws<JustReadException>(() => user.MarkReadMessage(message));
     }
 }

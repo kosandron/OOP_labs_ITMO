@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entities;
 
 public class Group : IAdressee
 {
-    private string _name;
-    private IList<User> _users;
+    private readonly string _name;
+    private readonly IList<IAdressee> _adressees;
+    private readonly IList<Message> _messages;
 
-    public Group(string name, IList<User> users)
+    public Group(string name, IList<IAdressee> adressees)
     {
         if (string.IsNullOrEmpty(name))
         {
@@ -17,23 +19,29 @@ public class Group : IAdressee
         }
 
         _name = name;
-        _users = users ?? new List<User>();
+        _adressees = adressees ?? new List<IAdressee>();
+        _messages = new List<Message>();
 
-        if (_users.Any(message => message is null))
+        if (_adressees.Any(adressee => adressee is null))
         {
-            throw new ArgumentNullException(nameof(users));
+            throw new ArgumentNullException(nameof(adressees));
         }
     }
 
     public string Name => _name;
+    public ImmutableList<Message> Messages => _messages.ToImmutableList();
 
-    public void GetMessage(Message message)
+    public void SendMessage(Message message)
     {
         if (message is null)
         {
             throw new ArgumentNullException(nameof(message));
         }
 
-        _users.ToList().ForEach(user => user.GetMessage(message));
+        _messages.Add(message);
+        foreach (IAdressee adressee in _adressees)
+        {
+            adressee.SendMessage(message);
+        }
     }
 }

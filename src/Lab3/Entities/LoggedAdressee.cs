@@ -23,9 +23,9 @@ public class LoggedAdressee : IAdressee
         _logger = logger;
     }
 
-    public void GetMessage(Message message)
+    public void SendMessage(Message message)
     {
-        _adressee.GetMessage(message);
+        _adressee.SendMessage(message);
         _logger.Log(message);
     }
 }
