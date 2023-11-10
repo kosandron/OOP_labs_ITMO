@@ -18,24 +18,19 @@ public class Display : IDisplay
         _displayDriver = displayDriver;
     }
 
-    public void ClearOutput()
-    {
-        _displayDriver.ClearOutput();
-    }
-
     public void SetColor(Color color)
     {
         _displayDriver.SetColor(color);
     }
 
-    public void Print(Message message)
+    public void Write(Message message)
     {
         if (message is null)
         {
             throw new ArgumentNullException(nameof(message));
         }
 
-        ClearOutput();
+        _displayDriver.ClearOutput();
         _displayDriver.Print(message);
     }
 }

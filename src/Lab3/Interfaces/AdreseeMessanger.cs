@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
 using Itmo.ObjectOrientedProgramming.Lab3.Entities;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Interfaces;
@@ -8,7 +6,6 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Interfaces;
 public class AdreseeMessanger : IAdressee
 {
     private readonly IMessanger _messanger;
-    private readonly List<Message> _messages;
 
     public AdreseeMessanger(IMessanger messanger)
     {
@@ -18,11 +15,7 @@ public class AdreseeMessanger : IAdressee
         }
 
         _messanger = messanger;
-        _messages = new List<Message>();
     }
-
-    public IMessanger Messanger => _messanger;
-    public ImmutableList<Message> Messages => _messages.ToImmutableList();
 
     public void SendMessage(Message message)
     {
@@ -31,7 +24,6 @@ public class AdreseeMessanger : IAdressee
             throw new ArgumentNullException(nameof(message));
         }
 
-        _messages.Add(message);
         _messanger.WriteMessage(message);
     }
 }
