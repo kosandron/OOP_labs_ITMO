@@ -8,21 +8,13 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Entities;
 
 public class User : IAdressee
 {
-    private readonly string _name;
     private readonly List<ImprovedMessage> _messages;
 
-    public User(string name)
+    public User()
     {
-        if (string.IsNullOrEmpty(name))
-        {
-            throw new ArgumentNullException(nameof(name));
-        }
-
-        _name = name;
         _messages = new List<ImprovedMessage>();
     }
 
-    public string Name => _name;
     public ImmutableList<ImprovedMessage> Messages => _messages.ToImmutableList();
 
     public void SendMessage(Message message)

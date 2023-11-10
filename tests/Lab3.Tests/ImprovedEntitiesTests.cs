@@ -31,7 +31,7 @@ public class ImprovedEntitiesTests
     {
         // Arrange
         ILogger logger = Substitute.For<ILogger>();
-        IAdressee user = new User("Fedor");
+        IAdressee user = new User();
         var loggedUser = new LoggedAdressee(user, logger);
         var message = new Message("Lunch", "Borsh, Kotlet, Pure, Kompot", 50);
 

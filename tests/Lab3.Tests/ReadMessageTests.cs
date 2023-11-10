@@ -12,22 +12,21 @@ public class ReadMessageTests
 
     public ReadMessageTests()
     {
-        _userVova = new User("Vova");
+        _userVova = new User();
         _contactBook = new ContactBook(new List<Topic>()
         {
             new Topic("Vova", _userVova),
             new Topic(
                 "Petya",
-                new User("Petya")),
+                new User()),
             new Topic(
                 "M3203",
                 new Group(
-                    "My group",
                     new List<IAdressee>()
                     {
-                        new User("Masha"),
-                        new User("Misha"),
-                        new User("Gosha"),
+                        new User(),
+                        new User(),
+                        new User(),
                     })),
         });
     }
