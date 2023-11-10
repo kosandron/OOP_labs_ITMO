@@ -24,13 +24,14 @@ public class DisplayDriver : IDisplayDriver
         _color = color;
     }
 
-    public void Print(Message message)
+    public void Print(Message message, Color color)
     {
         if (message is null)
         {
             throw new ArgumentNullException(nameof(message));
         }
 
+        SetColor(color);
         Console.Write(Crayon.Output.Rgb(_color.R, _color.G, _color.B).Text(message.BuildMessage()));
     }
 }

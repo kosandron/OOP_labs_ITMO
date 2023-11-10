@@ -7,5 +7,5 @@ public interface IDisplayDriver
 {
     void ClearOutput();
     void SetColor(Color color);
-    void Print(Message message);
+    void Print(Message message, Color color);
 }

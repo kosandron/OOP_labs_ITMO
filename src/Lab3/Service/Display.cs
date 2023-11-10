@@ -7,8 +7,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Service;
 public class Display : IDisplay
 {
     private readonly DisplayDriver _displayDriver;
+    private readonly Color _color;
 
-    public Display(DisplayDriver displayDriver)
+    public Display(DisplayDriver displayDriver, Color color)
     {
         if (displayDriver is null)
         {
@@ -16,11 +17,7 @@ public class Display : IDisplay
         }
 
         _displayDriver = displayDriver;
-    }
-
-    public void SetColor(Color color)
-    {
-        _displayDriver.SetColor(color);
+        _color = color;
     }
 
     public void Write(Message message)
@@ -31,6 +28,6 @@ public class Display : IDisplay
         }
 
         _displayDriver.ClearOutput();
-        _displayDriver.Print(message);
+        _displayDriver.Print(message, _color);
     }
 }
