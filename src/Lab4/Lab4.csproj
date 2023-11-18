@@ -2,6 +2,13 @@
 
     <PropertyGroup>
         <RootNamespace>Itmo.ObjectOrientedProgramming.Lab4</RootNamespace>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
+
+
+    <ItemGroup>
+      <Folder Include="Entities\Writers\" />
+      <Folder Include="Service\" />
+    </ItemGroup>
 
 </Project>
