@@ -11,6 +11,7 @@ public class FileSystemState
     public FileSystemState()
     {
         _fileSystem = new NotConnectedFileSystem();
+        _currentPath = null;
     }
 
     public IFileSystem FileSystem => _fileSystem;
@@ -55,6 +56,7 @@ public class FileSystemState
     public void Disconnect()
     {
         _fileSystem = new NotConnectedFileSystem();
+        _currentPath = null;
     }
 
     public void GoToCommand(string path)
@@ -62,6 +64,11 @@ public class FileSystemState
         if (string.IsNullOrEmpty(path))
         {
             throw new ArgumentNullException(nameof(path));
+        }
+
+        if (!_fileSystem.IsAbsolutePath(path))
+        {
+            throw new ArgumentException("Path is not absolute!");
         }
 
         _currentPath = path;
