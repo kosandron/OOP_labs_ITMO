@@ -1,11 +1,12 @@
 ﻿using System;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities.FileSystems;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Commands;
 
 public class RenameCommand : ICommand
 {
-    private string _path;
-    private string _name;
+    private readonly string _path;
+    private readonly string _name;
 
     public RenameCommand(string path, string name)
     {
@@ -23,8 +24,18 @@ public class RenameCommand : ICommand
         _name = name;
     }
 
-    public void Execute()
+    public string Path => _path;
+    public string NewName => _name;
+
+    public void Execute(FileSystemState fileSystemState)
     {
-        throw new System.NotImplementedException();
+        if (fileSystemState is null)
+        {
+            throw new ArgumentNullException(nameof(fileSystemState));
+        }
+
+        fileSystemState.FileSystem.Rename(
+            fileSystemState.FileSystem.GetAbsolutePath(fileSystemState.CurrentPath(), _path),
+            _name);
     }
 }

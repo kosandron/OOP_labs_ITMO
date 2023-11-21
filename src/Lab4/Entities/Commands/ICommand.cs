@@ -1,6 +1,8 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Commands;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.Entities.FileSystems;
+
+namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Commands;
 
 public interface ICommand
 {
-    void Execute();
+    void Execute(FileSystemState fileSystemState);
 }

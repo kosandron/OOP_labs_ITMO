@@ -1,11 +1,12 @@
 ﻿using System;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities.FileSystems;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Commands;
 
 public class CopyCommand : ICommand
 {
-    private string _from;
-    private string _to;
+    private readonly string _from;
+    private readonly string _to;
 
     public CopyCommand(string from, string to)
     {
@@ -23,8 +24,19 @@ public class CopyCommand : ICommand
         _to = to;
     }
 
-    public void Execute()
+    public string FromPath => _from;
+    public string ToPath => _to;
+
+    public void Execute(FileSystemState fileSystemState)
     {
-        throw new System.NotImplementedException();
+        if (fileSystemState is null)
+        {
+            throw new ArgumentNullException(nameof(fileSystemState));
+        }
+
+        fileSystemState.FileSystem
+            .Copy(
+                fileSystemState.FileSystem.GetAbsolutePath(fileSystemState.CurrentPath(), _from),
+                fileSystemState.FileSystem.GetAbsolutePath(fileSystemState.CurrentPath(), _to));
     }
 }

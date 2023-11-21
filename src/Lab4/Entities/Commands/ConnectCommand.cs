@@ -1,11 +1,12 @@
 ﻿using System;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities.FileSystems;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Commands;
 
 public class ConnectCommand : ICommand
 {
-    private string _path;
-    private string _mode;
+    private readonly string _path;
+    private readonly string _mode;
 
     public ConnectCommand(string path, string mode)
     {
@@ -28,8 +29,16 @@ public class ConnectCommand : ICommand
     {
     }
 
-    public void Execute()
+    public string Mode => _mode;
+    public string Path => _path;
+
+    public void Execute(FileSystemState fileSystemState)
     {
-        throw new System.NotImplementedException();
+        if (fileSystemState is null)
+        {
+            throw new ArgumentNullException(nameof(fileSystemState));
+        }
+
+        fileSystemState.Connect(_mode, _path);
     }
 }

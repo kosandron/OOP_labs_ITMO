@@ -1,10 +1,11 @@
 ﻿using System;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities.FileSystems;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Commands;
 
 public class DeleteCommand : ICommand
 {
-    private string _path;
+    private readonly string _path;
 
     public DeleteCommand(string path)
     {
@@ -16,8 +17,16 @@ public class DeleteCommand : ICommand
         _path = path;
     }
 
-    public void Execute()
+    public string Path => _path;
+
+    public void Execute(FileSystemState fileSystemState)
     {
-        throw new System.NotImplementedException();
+        if (fileSystemState is null)
+        {
+            throw new ArgumentNullException(nameof(fileSystemState));
+        }
+
+        fileSystemState.FileSystem.Delete(
+            fileSystemState.FileSystem.GetAbsolutePath(fileSystemState.CurrentPath(), _path));
     }
 }

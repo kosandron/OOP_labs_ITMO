@@ -1,7 +1,7 @@
 ﻿using System;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.Commands;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Parser;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Service.Parser;
 
 public class DeleteCommandParser : CommandParserBase
 {

@@ -2,9 +2,10 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Exceptions;
 
-public class EmptyChainException : NullReferenceException
+public class EmptyChainException : ArgumentNullException
 {
-    public EmptyChainException() { }
+    public EmptyChainException()
+    : base("Chain is empty") { }
     public EmptyChainException(string? valueName)
         : base($"{valueName}: chain is empty!") { }
 

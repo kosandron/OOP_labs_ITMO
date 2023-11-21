@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.Commands;
+using Itmo.ObjectOrientedProgramming.Lab4.Exceptions;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Parser;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Service.Parser;
 
 public class MainParser : IParser
 {
@@ -13,7 +14,7 @@ public class MainParser : IParser
     public MainParser()
         : this(new List<CommandParserBase>()
     {
-        new ConnectParser(),
+        new ConnectCommandParser(),
         new DisconnectCommandParser(),
         new CopyCommandParser(),
         new MoveCommandParser(),
@@ -27,7 +28,7 @@ public class MainParser : IParser
     {
         if (parsers is null || parsers.Count == 0)
         {
-            throw new ArgumentNullException(nameof(parsers));
+            throw new EmptyChainException("Parser command chain");
         }
 
         if (parsers.Any(parser => parser is null))

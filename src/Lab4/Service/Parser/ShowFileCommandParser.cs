@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.Commands;
 using Itmo.ObjectOrientedProgramming.Lab4.Exceptions;
+using Itmo.ObjectOrientedProgramming.Lab4.Service.Writers;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Parser;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Service.Parser;
 
 public class ShowFileCommandParser : CommandParserBase
 {
@@ -22,17 +24,23 @@ public class ShowFileCommandParser : CommandParserBase
 
         if (!(words.Length == 3 || words.Length == 5))
         {
-            throw new NessesaryArgumentsCountException();
+            throw new NecessaryArgumentsCountException();
         }
 
         if (words.Length == 5)
         {
-            if (words[3].Equals("-d", StringComparison.Ordinal))
+            if (!words[3].Equals("-m", StringComparison.Ordinal))
             {
-                return new ShowCommand(words[2], words[4]);
+                throw new FlagErrorException("ModeFlag");
             }
 
-            throw new FlagErrorException();
+            if (!new SupportedWriters().WritersList.Any(
+                    writer => writer.Mode.Equals(words[4], StringComparison.Ordinal)))
+            {
+                throw new NotFoundException($"Writer {words[2]}");
+            }
+
+            return new ShowCommand(words[2], words[4]);
         }
 
         return new ShowCommand(words[2]);

@@ -1,11 +1,12 @@
 ﻿using System;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities.FileSystems;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Commands;
 
 public class ShowCommand : ICommand
 {
-    private string _path;
-    private string _mode;
+    private readonly string _path;
+    private readonly string _mode;
 
     public ShowCommand(string path, string mode)
     {
@@ -28,8 +29,18 @@ public class ShowCommand : ICommand
     {
     }
 
-    public void Execute()
+    public string Path => _path;
+    public string Mode => _mode;
+
+    public void Execute(FileSystemState fileSystemState)
     {
-        throw new System.NotImplementedException();
+        if (fileSystemState is null)
+        {
+            throw new ArgumentNullException(nameof(fileSystemState));
+        }
+
+        fileSystemState.FileSystem.Show(
+            fileSystemState.FileSystem.GetAbsolutePath(fileSystemState.CurrentPath(), _path),
+            _mode);
     }
 }

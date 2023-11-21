@@ -1,9 +1,17 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Commands;
+﻿using System;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities.FileSystems;
+
+namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Commands;
 
 public class DisconnectCommand : ICommand
 {
-    public void Execute()
+    public void Execute(FileSystemState fileSystemState)
     {
-        throw new System.NotImplementedException();
+        if (fileSystemState is null)
+        {
+            throw new ArgumentNullException(nameof(fileSystemState));
+        }
+
+        fileSystemState.Disconnect();
     }
 }

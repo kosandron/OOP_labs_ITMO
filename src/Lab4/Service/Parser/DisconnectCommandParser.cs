@@ -1,6 +1,6 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab4.Entities.Commands;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Parser;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Service.Parser;
 
 public class DisconnectCommandParser : CommandParserBase
 {
@@ -15,9 +15,7 @@ public class DisconnectCommandParser : CommandParserBase
         {
             return new DisconnectCommand();
         }
-        else
-        {
-            return ParseNext(data);
-        }
+
+        return ParseNext(data);
     }
 }

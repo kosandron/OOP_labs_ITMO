@@ -1,9 +1,9 @@
 ﻿using System;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.Commands;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Parser;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Service.Parser;
 
-public class RenameCommandParser : CommandParserBase
+public class CopyCommandParser : CommandParserBase
 {
     public override ICommand? TryParse(string data)
     {
@@ -14,11 +14,11 @@ public class RenameCommandParser : CommandParserBase
 
         string[] words = data.Split();
 
-        if (words.Length != 4 || !data.StartsWith("file rename", StringComparison.Ordinal))
+        if (words.Length != 4 || !data.StartsWith("file copy", StringComparison.Ordinal))
         {
             return ParseNext(data);
         }
 
-        return new RenameCommand(words[2], words[3]);
+        return new CopyCommand(words[2], words[3]);
     }
 }
