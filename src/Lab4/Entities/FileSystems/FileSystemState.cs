@@ -54,7 +54,7 @@ public class FileSystemState
             throw new ArgumentNullException(nameof(path));
         }
 
-        IFileSystem? fileSystem = new FileSystemFactory().CreateByMode(mode);
+        IFileSystem? fileSystem = _fileSystemFactory.CreateByMode(mode);
         if (fileSystem is null)
         {
             throw new NotFoundException($"Filesystem {mode}");
@@ -102,7 +102,7 @@ public class FileSystemState
             throw new ArgumentNullException(nameof(mode));
         }
 
-        WriterBase? writer = new WriterFactory().CreateByMode(mode);
+        WriterBase? writer = _writerFactory.CreateByMode(mode);
         if (writer is null)
         {
             throw new NotFoundException("Writer $mode");
@@ -128,7 +128,7 @@ public class FileSystemState
             throw new NegativeValueException("Depth < 1");
         }
 
-        WriterBase? writer = new WriterFactory().CreateByMode(mode);
+        WriterBase? writer = _writerFactory.CreateByMode(mode);
         if (writer is null)
         {
             throw new NotFoundException("Writer $mode");
