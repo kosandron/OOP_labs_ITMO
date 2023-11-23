@@ -1,8 +1,8 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.FileSystems.RealFileSystem.Visitors;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.FileSystems.Visitors;
 
 public interface IPrintVisitor<in T> : IPrintVisitor
 {
-    string Visit(T fileObject);
+    void Visit(T fileObject);
 }
 
 public interface IPrintVisitor

@@ -1,4 +1,5 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Exceptions;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.Entities.FileSystems.FileSystemObjects;
+using Itmo.ObjectOrientedProgramming.Lab4.Exceptions;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.FileSystems;
 
@@ -31,12 +32,12 @@ public class NotConnectedFileSystem : IFileSystem
         throw new NotConnectedFileSystemException();
     }
 
-    public void Show(string path, string mode)
+    public string GetFileContent(string path)
     {
         throw new NotConnectedFileSystemException();
     }
 
-    public void TreeList(string path, int depth, string mode)
+    public IFileObject GetFileTree(string path, int depth)
     {
         throw new NotConnectedFileSystemException();
     }

@@ -3,6 +3,7 @@ using System.IO;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.Commands;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.FileSystems;
 using Itmo.ObjectOrientedProgramming.Lab4.Service.Parser;
+using Itmo.ObjectOrientedProgramming.Lab4.Service.Writers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
 
@@ -10,7 +11,7 @@ public static class Programm
 {
     public static void Main()
     {
-        var state = new FileSystemState();
+        var state = new FileSystemState(new FileSystemFactory(), new WriterFactory());
         string? input = "exit";
         var parser = new MainParser();
         while (true)

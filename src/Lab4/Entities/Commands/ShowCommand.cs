@@ -39,7 +39,7 @@ public class ShowCommand : ICommand
             throw new ArgumentNullException(nameof(fileSystemState));
         }
 
-        fileSystemState.FileSystem.Show(
+        fileSystemState.Show(
             fileSystemState.FileSystem.GetAbsolutePath(fileSystemState.CurrentPath(), _path),
             _mode);
     }

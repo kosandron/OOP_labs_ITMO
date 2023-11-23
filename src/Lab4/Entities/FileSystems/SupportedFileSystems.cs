@@ -11,7 +11,7 @@ public class SupportedFileSystems
 
     public SupportedFileSystems()
     {
-        _fileSystems = new List<IFileSystem>() { new RealFileSystem.RealFileSystem() };
+        _fileSystems = new List<IFileSystem>() { new RealFileSystem() };
     }
 
     public ImmutableList<IFileSystem> FileSystemsList => _fileSystems.ToImmutableList();

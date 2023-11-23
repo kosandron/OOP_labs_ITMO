@@ -11,7 +11,7 @@ public class FileSystemFactory
 
     public FileSystemFactory()
     {
-        _fileSystems = new Collection<IFileSystem>() { new RealFileSystem.RealFileSystem() };
+        _fileSystems = new Collection<IFileSystem>() { new RealFileSystem() };
     }
 
     public FileSystemFactory(ICollection<IFileSystem> fileSystems)

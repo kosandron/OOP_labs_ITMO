@@ -1,11 +1,11 @@
 ﻿using System;
 using System.IO;
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.FileSystems.RealFileSystem.FileSystemObjects;
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.FileSystems.RealFileSystem.Visitors;
+using System.Text;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities.FileSystems.FileSystemObjects;
 using Itmo.ObjectOrientedProgramming.Lab4.Exceptions;
-using Itmo.ObjectOrientedProgramming.Lab4.Service.Writers;
+using File = System.IO.File;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.FileSystems.RealFileSystem;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.FileSystems;
 
 public class RealFileSystem : IFileSystem
 {
@@ -66,45 +66,32 @@ public class RealFileSystem : IFileSystem
         File.Move(path, string.Concat(Path.GetDirectoryName(path), newName));
     }
 
-    public void Show(string path, string mode)
+    public string GetFileContent(string path)
     {
         if (string.IsNullOrEmpty(path))
         {
             throw new ArgumentNullException(nameof(path));
         }
 
-        if (string.IsNullOrEmpty(mode))
-        {
-            throw new ArgumentNullException(nameof(mode));
-        }
-
-        WriterBase? writer = new WriterFactory().CreateByMode(mode);
-        if (writer is null)
-        {
-            throw new NotFoundException("Writer mode");
-        }
-
         var streamReader = new StreamReader(path);
+        var stringBuilder = new StringBuilder();
         string? line = streamReader.ReadLine();
         while (line != null)
         {
-            writer.WriteLine(line);
+            stringBuilder.Append(line);
             line = streamReader.ReadLine();
         }
 
         streamReader.Close();
+
+        return stringBuilder.ToString();
     }
 
-    public void TreeList(string path, int depth, string mode)
+    public IFileObject GetFileTree(string path, int depth)
     {
         if (string.IsNullOrEmpty(path))
         {
             throw new ArgumentNullException(nameof(path));
-        }
-
-        if (string.IsNullOrEmpty(mode))
-        {
-            throw new ArgumentNullException(nameof(mode));
         }
 
         if (depth < 1)
@@ -112,21 +99,14 @@ public class RealFileSystem : IFileSystem
             throw new NegativeValueException("Depth < 1");
         }
 
-        WriterBase? writer = new WriterFactory().CreateByMode(mode);
-        if (writer is null)
-        {
-            throw new NotFoundException("Writer $mode");
-        }
-
-        RealFileObject? fileTree = new FileTreeCreator()
+        IFileObject? fileTreeRoot = new FileTreeCreator()
             .GetTree(path, path.Substring(path.LastIndexOf("/", StringComparison.Ordinal)), depth);
-        if (fileTree is null)
+        if (fileTreeRoot is null)
         {
             throw new NotFoundException(path);
         }
 
-        var visitor = new RealFilePrintVisitor();
-        writer.WriteLine(fileTree.Accept(visitor));
+        return fileTreeRoot;
     }
 
     public bool IsAbsolutePath(string path)

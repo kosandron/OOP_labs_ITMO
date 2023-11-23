@@ -46,9 +46,9 @@ public class TreeListCommand : ICommand
             throw new ArgumentNullException(nameof(fileSystemState));
         }
 
-        fileSystemState.FileSystem.TreeList(
+        fileSystemState.TreeList(
             fileSystemState.FileSystem.GetAbsolutePath(fileSystemState.CurrentPath(), _path),
-            _depth,
-            _mode);
+            _mode,
+            _depth);
     }
 }
