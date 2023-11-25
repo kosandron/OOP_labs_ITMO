@@ -1,7 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
         <RootNamespace>Itmo.ObjectOrientedProgramming.Lab3</RootNamespace>
     </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Crayon" />
+    </ItemGroup>
 
 </Project>
